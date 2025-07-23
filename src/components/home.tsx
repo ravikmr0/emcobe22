@@ -6,6 +6,7 @@ import AboutSection from "./AboutSection";
 import ServicesGrid from "./ServicesGrid";
 import ContactSection from "./ContactSection";
 import Footer from "./Footer";
+import ProjectPhotosGallery from "./ProjectPhotosGallery";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -114,21 +115,7 @@ const HomePage = () => {
           <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
             Project Photos
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Project images */}
-            {[1, 2, 3, 4, 5, 6].map((item) => (
-              <div
-                key={item}
-                className="overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
-              >
-                <img
-                  src={`https://images.unsplash.com/photo-1550305408-111000-83fd8b82b70c?w=800&q=80`}
-                  alt={`Project ${item}`}
-                  className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            ))}
-          </div>
+          <ProjectPhotosGallery />
         </div>
       </motion.div>
 

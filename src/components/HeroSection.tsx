@@ -22,13 +22,13 @@ const HeroSection = ({
   title = "EMCOBE Engineering & Consultants",
   tagline = "Accuracy we prefer, Perfection we provide.",
   backgroundImages = [
-    "https://images.unsplash.com/photo-1531834685032-c34bf0d84c77?w=1920&q=90",
+    "/images/3d-images/shamrock.png",
     "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=90",
-    "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=90",
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=90",
-    "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?w=1920&q=90",
+    "/images/site-images/site1.jpg",
+    "/images/3d-images/phxzoo.png",
+    "/images/3d-images/snap.png",
   ],
-  logoSrc = "https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?w=300&q=80",
+  logoSrc = "/logo.jpg",
 }: HeroSectionProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);

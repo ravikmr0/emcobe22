@@ -36,9 +36,9 @@ const Footer = ({
   ];
 
   const contactInfo = {
-    email: "mail@emcobe.net",
-    phone: "+91 7982864577",
-    address: "5th Floor, Logix Technova, Block-C, Delhi, India",
+    email: "info@emcobe.net",
+    phone: "+91 7500186008",
+    address: "84, Chandpur Kalan, Dist-Mathura U.P.India",
   };
 
   const socialLinks = [

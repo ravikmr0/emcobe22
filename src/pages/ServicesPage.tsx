@@ -78,7 +78,7 @@ const ServicesPage = () => {
         "Quality control checklists",
       ],
       image:
-        "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=800&q=80",
+        "https://plus.unsplash.com/premium_photo-1661340695541-ee1ca7efedd0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
     },
     {
       icon: <LayoutGrid size={32} />,
@@ -134,7 +134,7 @@ const ServicesPage = () => {
         "Quality specifications",
       ],
       image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+        "https://plus.unsplash.com/premium_photo-1663088543643-2a1ebfc830b6?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 

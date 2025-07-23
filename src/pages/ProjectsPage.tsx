@@ -35,9 +35,9 @@ const ProjectsPage = () => {
       image:
         "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
       stats: {
-        area: "2.5M sq ft",
-        steel: "15,000 tons",
-        duration: "18 months",
+        // area: "2.5M sq ft",
+        // steel: "15,000 tons",
+        // duration: "18 months",
       },
       tags: ["BIM Modeling", "3D Modeling", "Shop Drawings"],
     },
@@ -50,11 +50,11 @@ const ProjectsPage = () => {
       description:
         "Large-scale manufacturing facility with complex steel structures and specialized equipment foundations.",
       image:
-        "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+        "https://plus.unsplash.com/premium_photo-1682144928788-f2875a886e16?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       stats: {
-        area: "800K sq ft",
-        steel: "8,500 tons",
-        duration: "12 months",
+        // area: "800K sq ft",
+        // steel: "8,500 tons",
+        // duration: "12 months",
       },
       tags: ["Fabrication Drawings", "CNC Integration", "Erection Drawings"],
     },
@@ -67,11 +67,11 @@ const ProjectsPage = () => {
       description:
         "Multi-span highway bridge with innovative steel design and seismic resistance features.",
       image:
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+        "https://images.unsplash.com/photo-1493476523860-a6de6ce1b0c3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fFN0ZWVsJTIwU3RydWN0dXJlfGVufDB8fDB8fHww",
       stats: {
-        length: "1,200 ft",
-        steel: "12,000 tons",
-        duration: "24 months",
+        // length: "1,200 ft",
+        // steel: "12,000 tons",
+        // duration: "24 months",
       },
       tags: ["Structural Analysis", "3D Modeling", "General Arrangement"],
     },
@@ -84,11 +84,11 @@ const ProjectsPage = () => {
       description:
         "Large retail complex with intricate steel framework supporting expansive open spaces.",
       image:
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80",
+        "https://plus.unsplash.com/premium_photo-1661340695541-ee1ca7efedd0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
       stats: {
-        area: "1.8M sq ft",
-        steel: "9,200 tons",
-        duration: "15 months",
+        // area: "1.8M sq ft",
+        // steel: "9,200 tons",
+        // duration: "15 months",
       },
       tags: ["BIM Coordination", "Shop Drawings", "Material Lists"],
     },
@@ -103,9 +103,9 @@ const ProjectsPage = () => {
       image:
         "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80",
       stats: {
-        area: "500K sq ft",
-        steel: "18,000 tons",
-        duration: "30 months",
+        // area: "500K sq ft",
+        // steel: "18,000 tons",
+        // duration: "30 months",
       },
       tags: ["Precision Detailing", "Quality Control", "Technical Drawings"],
     },
@@ -120,9 +120,9 @@ const ProjectsPage = () => {
       image:
         "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
       stats: {
-        floors: "45 floors",
-        steel: "6,800 tons",
-        duration: "20 months",
+        // floors: "45 floors",
+        // steel: "6,800 tons",
+        // duration: "20 months",
       },
       tags: ["Architectural Steel", "3D Visualization", "Coordination"],
     },
@@ -278,22 +278,22 @@ const ProjectsPage = () => {
             {[
               {
                 icon: <Building size={32} />,
-                number: "500+",
+                number: "100+",
                 label: "Projects Completed",
               },
               {
                 icon: <Users size={32} />,
-                number: "200+",
+                number: "00+",
                 label: "Happy Clients",
               },
               {
                 icon: <MapPin size={32} />,
-                number: "25+",
+                number: "6+",
                 label: "Countries Served",
               },
               {
                 icon: <Calendar size={32} />,
-                number: "15+",
+                number: "5+",
                 label: "Years Experience",
               },
             ].map((stat, index) => (

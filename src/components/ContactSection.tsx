@@ -236,10 +236,10 @@ const ContactSection = () => {
                     <div>
                       <p className="font-medium">Phone</p>
                       <a
-                        href="tel:+917982864577"
+                        href="tel:+917500186008"
                         className="text-blue-600 hover:underline"
                       >
-                        (+91) 7982864577
+                        (+91) 7500186008
                       </a>
                     </div>
                   </div>
@@ -249,7 +249,7 @@ const ContactSection = () => {
                     <div>
                       <p className="font-medium">Address</p>
                       <p className="text-gray-600">
-                        5th Floor, Logix Technova, Block-C, Delhi, India
+                       84, Chandpur Kalan, Dist-Mathura U.P. India
                       </p>
                     </div>
                   </div>

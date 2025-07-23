@@ -13,9 +13,9 @@ const AboutPage = () => {
 
   const stats = [
     { icon: <Users size={32} />, number: "50+", label: "Expert Engineers" },
-    { icon: <Award size={32} />, number: "500+", label: "Projects Completed" },
-    { icon: <Target size={32} />, number: "15+", label: "Years Experience" },
-    { icon: <Globe size={32} />, number: "25+", label: "Countries Served" },
+    { icon: <Award size={32} />, number: "100+", label: "Projects Completed" },
+    { icon: <Target size={32} />, number: "5+", label: "Years Experience" },
+    { icon: <Globe size={32} />, number: "15+", label: "Countries Served" },
   ];
 
   const values = [
@@ -113,7 +113,7 @@ const AboutPage = () => {
               className="relative"
             >
               <img
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
+                src="https://plus.unsplash.com/premium_photo-1680124548369-7f35104cebee?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Steel construction site"
                 className="rounded-lg shadow-lg w-full h-96 object-cover"
               />

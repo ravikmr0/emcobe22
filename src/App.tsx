@@ -14,7 +14,7 @@ import routes from "tempo-routes";
 function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <>
+      
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
@@ -27,7 +27,7 @@ function App() {
           <Route path="/careers" element={<CareersPage />} />
         </Routes>
         {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
-      </>
+      
     </Suspense>
   );
 }

@@ -18,12 +18,12 @@ const Header = ({
 
   const navigationItems = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "/about" },
+    { name: "About Us", href: "/about#" },
     { name: "Our Services", href: "/services" },
     { name: "Projects", href: "/projects" },
     { name: "Request For Quote", href: "/quote" },
-    { name: "Samples", href: "/samples" },
-    { name: "Blog", href: "/blog" },
+    // { name: "Samples", href: "/samples" },
+    // { name: "Blog", href: "/blog" },
     { name: "Careers", href: "/careers" },
     { name: "Contact Us", href: "/contact" },
   ];

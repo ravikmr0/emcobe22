@@ -14,20 +14,19 @@ import routes from "tempo-routes";
 function App() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/quote" element={<RequestForQuotePage />} />
-          <Route path="/samples" element={<SamplesPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/careers" element={<CareersPage />} />
-        </Routes>
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
-      
+      {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/quote" element={<RequestForQuotePage />} />
+        <Route path="/samples" element={<SamplesPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/careers" element={<CareersPage />} />
+        {import.meta.env.VITE_TEMPO && <Route path="/tempobook/*" />}
+      </Routes>
     </Suspense>
   );
 }

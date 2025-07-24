@@ -72,15 +72,15 @@ const ServicesGrid = () => {
     },
     {
       icon: <Cog size={24} />,
-      title: "CNC/FABTROL/KISS Integration",
+      title: "CNC/FABTROL/KSS/POWER FAB",
       description:
         "Seamless integration with fabrication software for optimized production workflows.",
     },
     {
       icon: <Factory size={24} />,
-      title: "Fabrication Drawings",
+      title: "Esti Modeling",
       description:
-        "Detailed drawings for fabrication with precise measurements and assembly instructions.",
+        "We Provide accurate and data-rich ESTI models at no additional charge, to support early-stage estimation, planning, and decision-making.",
     },
   ];
 

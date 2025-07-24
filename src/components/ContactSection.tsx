@@ -223,10 +223,10 @@ const ContactSection = () => {
                     <div>
                       <p className="font-medium">Email</p>
                       <a
-                        href="mailto:mail@emcobe.net"
+                        href="mailto:info@emcobe.net"
                         className="text-blue-600 hover:underline"
                       >
-                        mail@emcobe.net
+                        info@emcobe.net
                       </a>
                     </div>
                   </div>

@@ -22,8 +22,8 @@ function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/quote" element={<RequestForQuotePage />} />
-        <Route path="/samples" element={<SamplesPage />} />
-        <Route path="/blog" element={<BlogPage />} />
+        {/* <Route path="/samples" element={<SamplesPage />} /> */}
+        {/* <Route path="/blog" element={<BlogPage />} /> */}
         <Route path="/careers" element={<CareersPage />} />
         {import.meta.env.VITE_TEMPO && <Route path="/tempobook/*" />}
       </Routes>

@@ -12,7 +12,15 @@ interface AboutSectionProps {
 const AboutSection = ({
   title = "Who We Are",
   description = "At Emcobe Engineering & Consultants, we specialize in delivering precise, high-quality steel detailing solutions for the industrial and commercial sectors. Backed by deep expertise and years of experience, we are committed to excellence in every project we undertake.",
-  expertise = ["Tekla Structures", "SDS/2", "•	Structural & Miscellaneous Steel Detailing", "•	3D Modeling & BIM Integration", "Connection Design & Shop Drawings", "Standards Compliance & Quality Assurance", "Project Management & Coordination"],
+  expertise = [
+    "Tekla Structures",
+    "SDS/2",
+    "	Structural & Miscellaneous Steel Detailing",
+    "3D Modeling & BIM Integration",
+    "Connection Design & Shop Drawings",
+    "Standards Compliance & Quality Assurance",
+    "Project Management & Coordination",
+  ],
   values = [
     {
       title: "Coordination",

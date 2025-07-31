@@ -29,7 +29,7 @@ const ProjectPhotosGallery = () => {
       id: 1,
       title: "Santa Rosa Ranch Community School",
       category: "Commercial",
-      location: "���Indian Route 35, Sells, AZ 85634",
+      location: "📍Indian Route 35, Sells, AZ 85634",
       images: [
         "/images/3d-images/snap_005.png",
         "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
@@ -317,8 +317,8 @@ const ProjectPhotosGallery = () => {
                     before:absolute before:inset-0 before:rounded-lg
                     before:bg-gradient-to-r before:from-blue-500/10 before:via-purple-500/10 before:to-cyan-500/10
                     before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500
-                    after:absolute after:inset-[1px] after:rounded-lg after:bg-white/90
-                    hover:after:bg-gradient-to-br hover:after:from-white/95 hover:after:to-gray-50/90
+                    after:absolute after:inset-[1px] after:rounded-lg 
+                    hover:after:bg-gradient-to-br hover:after:from-white/95 
                     ${index % 2 === 0 ? 'hover:translate-x-2' : 'hover:-translate-x-2'}
                     hover:scale-[1.02] transform-gpu
                   `}
@@ -337,7 +337,7 @@ const ProjectPhotosGallery = () => {
                   onMouseEnter={() => setHoveredCard(photoIndex)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
-                  <div className={`flex flex-col ${getLayoutClass(index)} min-h-[400px] md:min-h-[500px]`}>
+                  <div className={`flex flex-col ${getLayoutClass(index)} min-h-[400px] md:min-h-[410px]`}>
                     {/* Image Section with Advanced Borders */}
                     <div className="relative flex-1 md:w-1/2 overflow-hidden">
                       {/* Sophisticated Border Frame */}

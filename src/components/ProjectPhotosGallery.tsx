@@ -131,69 +131,11 @@ const ProjectPhotosGallery = () => {
     }
   ];
 
-  // Initialize card image indexes and loading states with sequential loading
+  // Initialize card image indexes
   useEffect(() => {
     const initialIndexes = projectPhotos.map(() => 0);
     setCardImageIndexes(initialIndexes);
-
-    const loadedStatus = projectPhotos.map(photo =>
-      new Array(photo.images.length).fill(false)
-    );
-    setImagesLoaded(loadedStatus);
-
-    const loadingStates = projectPhotos.map(photo =>
-      new Array(photo.images.length).fill(false)
-    );
-    setImageLoadingStates(loadingStates);
-
-    // Setup intersection observer for sequential lazy loading
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const cardIndex = parseInt(entry.target.getAttribute('data-card-index') || '0');
-            setVisibleCards(prev => new Set([...prev, cardIndex]));
-
-            // Queue valid images for sequential loading
-            const photo = projectPhotos[cardIndex];
-            if (photo) {
-              photo.images.forEach((imageUrl, imageIndex) => {
-                if (isValidImageUrl(imageUrl)) {
-                  queueImageForLoading(cardIndex, imageIndex);
-                }
-              });
-            }
-          }
-        });
-      },
-      {
-        rootMargin: '200px',
-        threshold: 0.1
-      }
-    );
-
-    // Observe all card elements
-    cardRefs.current.forEach((cardElement) => {
-      if (cardElement && observerRef.current) {
-        observerRef.current.observe(cardElement);
-      }
-    });
-
-    // Start loading first few valid images immediately
-    setTimeout(() => {
-      projectPhotos.slice(0, 2).forEach((photo, photoIndex) => {
-        if (isValidImageUrl(photo.images[0])) {
-          queueImageForLoading(photoIndex, 0);
-        }
-      });
-    }, 100);
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [queueImageForLoading, isValidImageUrl]);
+  }, []);
 
   // Auto-slide functionality for individual cards - only when hovered
   useEffect(() => {

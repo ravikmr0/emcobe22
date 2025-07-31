@@ -141,23 +141,6 @@ const ProjectPhotosGallery = () => {
   useEffect(() => {
     if (hoveredCard === null) return;
 
-    // Priority load all valid images for hovered card
-    const hoveredPhoto = projectPhotos[hoveredCard];
-    if (hoveredPhoto) {
-      hoveredPhoto.images.forEach((imageUrl, imageIndex) => {
-        if (isValidImageUrl(imageUrl) && !imagesLoaded[hoveredCard]?.[imageIndex]) {
-          // Add to front of queue for priority loading
-          setLoadingQueue(prev => {
-            const exists = prev.some(item =>
-              item.photoIndex === hoveredCard && item.imageIndex === imageIndex
-            );
-            if (exists) return prev;
-            return [{ photoIndex: hoveredCard, imageIndex }, ...prev];
-          });
-        }
-      });
-    }
-
     const interval = setInterval(() => {
       setCardImageIndexes(prev => {
         const newIndexes = [...prev];
@@ -175,7 +158,7 @@ const ProjectPhotosGallery = () => {
     }, 1500);
 
     return () => clearInterval(interval);
-  }, [hoveredCard, projectPhotos, imagesLoaded, isValidImageUrl]);
+  }, [hoveredCard]);
 
   const openLightbox = (photo: ProjectPhoto, imageIndex: number) => {
     setSelectedImage({ photo, imageIndex });

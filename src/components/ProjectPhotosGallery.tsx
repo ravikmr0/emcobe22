@@ -335,38 +335,6 @@ const ProjectPhotosGallery = () => {
                       <div className="absolute bottom-3 left-3 w-6 h-6 border-l-2 border-b-2 border-cyan-500/40 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-all duration-500 delay-300 z-10"></div>
                       <div className="absolute bottom-3 right-3 w-6 h-6 border-r-2 border-b-2 border-indigo-500/40 rounded-br-lg opacity-0 group-hover:opacity-100 transition-all duration-500 delay-400 z-10"></div>
 
-                      {/* Advanced Sequential Loading State */}
-                      {(!isLoaded || imageLoadingStates[photoIndex]?.[currentImageIndex]) && isValidImage && (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-100 via-gray-50 to-gray-100 flex items-center justify-center relative">
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite] transform skew-x-12"></div>
-                          <div className="flex flex-col items-center space-y-4 z-10">
-                            <Loader2 className="h-8 w-8 text-blue-500 animate-spin" />
-                            <div className="text-gray-500 text-sm font-medium">
-                              {currentlyLoading?.photoIndex === photoIndex && currentlyLoading?.imageIndex === currentImageIndex
-                                ? 'Loading...'
-                                : `In Queue (${Math.max(0, loadingQueue.findIndex(item => item.photoIndex === photoIndex && item.imageIndex === currentImageIndex) + 1)})`
-                              }
-                            </div>
-                            <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
-                              <motion.div
-                                className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-                                animate={{
-                                  width: currentlyLoading?.photoIndex === photoIndex && currentlyLoading?.imageIndex === currentImageIndex
-                                    ? "100%"
-                                    : "20%"
-                                }}
-                                transition={{ duration: 0.5 }}
-                              />
-                            </div>
-                            {loadingQueue.length > 0 && (
-                              <div className="text-xs text-gray-400">
-                                {loadingQueue.length} images in queue
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
                       {/* Fallback for invalid images */}
                       {!isValidImage && (
                         <div className="w-full h-full bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 flex items-center justify-center">
@@ -376,7 +344,7 @@ const ProjectPhotosGallery = () => {
                           </div>
                         </div>
                       )}
-                      
+
                       <AnimatePresence mode="wait">
                         {isValidImage && (
                           <motion.div
@@ -390,9 +358,7 @@ const ProjectPhotosGallery = () => {
                             <motion.img
                               src={currentImage}
                               alt={photo.title}
-                              className={`w-full h-full object-cover ${
-                                isLoaded ? 'opacity-100' : 'opacity-0'
-                              }`}
+                              className="w-full h-full object-cover"
                               loading="lazy"
                               variants={imageVariants}
                               whileHover="hover"

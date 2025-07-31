@@ -131,11 +131,14 @@ const ProjectPhotosGallery = () => {
     }
   ];
 
-  // Initialize card image indexes - start with second image (index 1)
+  // Initialize card image indexes - start with second image (index 1) if valid
   useEffect(() => {
-    const initialIndexes = projectPhotos.map(photo =>
-      photo.images.length > 1 ? 1 : 0
-    );
+    const initialIndexes = projectPhotos.map(photo => {
+      if (photo.images.length > 1 && isValidImageUrl(photo.images[1])) {
+        return 1; // Start with second image if it exists and is valid
+      }
+      return 0; // Fall back to first image
+    });
     setCardImageIndexes(initialIndexes);
   }, []);
 

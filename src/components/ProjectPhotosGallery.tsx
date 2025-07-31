@@ -405,8 +405,8 @@ const ProjectPhotosGallery = () => {
                         </motion.div>
                       )}
 
-                      {/* Thumbnail of first image */}
-                      {isValidImageUrl(photo.images[0]) && photo.images.length > 1 && (
+                      {/* Thumbnail - always shows first image (3D rendering) */}
+                      {isValidImageUrl(photo.images[0]) && photo.images.length > 1 && currentImageIndex !== 0 && (
                         <motion.div
                           className="absolute bottom-4 left-4 w-20 h-16 rounded-lg overflow-hidden border-3 border-white shadow-2xl cursor-pointer hover:scale-110 transition-all duration-300 z-10 bg-white"
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -422,8 +422,11 @@ const ProjectPhotosGallery = () => {
                         >
                           <img
                             src={photo.images[0]}
-                            alt={`${photo.title} thumbnail`}
+                            alt={`${photo.title} 3D rendering`}
                             className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
                           />
                           <div className="absolute top-1 right-1 bg-blue-600 text-white text-xs px-1 py-0.5 rounded font-semibold">
                             3D
@@ -607,7 +610,7 @@ const ProjectPhotosGallery = () => {
                 ) : (
                   <div className="bg-gray-800 text-white p-8 rounded-lg">
                     <div className="text-center">
-                      <div className="text-6xl mb-4">🏗️</div>
+                      <div className="text-6xl mb-4">🏗���</div>
                       <div>Image not available</div>
                     </div>
                   </div>

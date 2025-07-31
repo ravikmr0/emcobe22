@@ -45,6 +45,17 @@ const ProjectPhotosGallery = () => {
     setCurrentlyLoading(null);
   }, []);
 
+  const handleImageError = useCallback((photoIndex: number, imageIndex: number) => {
+    setImageLoadingStates(prev => {
+      const newStates = [...prev];
+      if (newStates[photoIndex]) {
+        newStates[photoIndex][imageIndex] = false;
+      }
+      return newStates;
+    });
+    setCurrentlyLoading(null);
+  }, []);
+
   const startImageLoading = useCallback((photoIndex: number, imageIndex: number) => {
     setImageLoadingStates(prev => {
       const newStates = [...prev];
@@ -53,6 +64,11 @@ const ProjectPhotosGallery = () => {
       }
       return newStates;
     });
+  }, []);
+
+  // Check if image URL is valid
+  const isValidImageUrl = useCallback((url: string) => {
+    return url && url !== "/" && url !== "" && url.includes(".");
   }, []);
 
   // Process loading queue one by one
@@ -64,7 +80,7 @@ const ProjectPhotosGallery = () => {
     setCurrentlyLoading(nextItem);
 
     const photo = projectPhotos[nextItem.photoIndex];
-    if (photo && photo.images[nextItem.imageIndex]) {
+    if (photo && photo.images[nextItem.imageIndex] && isValidImageUrl(photo.images[nextItem.imageIndex])) {
       startImageLoading(nextItem.photoIndex, nextItem.imageIndex);
 
       const img = new Image();
@@ -76,18 +92,14 @@ const ProjectPhotosGallery = () => {
         }, 100);
       };
       img.onerror = () => {
-        setImageLoadingStates(prev => {
-          const newStates = [...prev];
-          if (newStates[nextItem.photoIndex]) {
-            newStates[nextItem.photoIndex][nextItem.imageIndex] = false;
-          }
-          return newStates;
-        });
-        setCurrentlyLoading(null);
+        handleImageError(nextItem.photoIndex, nextItem.imageIndex);
       };
       img.src = photo.images[nextItem.imageIndex];
+    } else {
+      // Skip invalid URLs
+      handleImageError(nextItem.photoIndex, nextItem.imageIndex);
     }
-  }, [currentlyLoading, loadingQueue, startImageLoading, handleImageLoad]);
+  }, [currentlyLoading, loadingQueue, startImageLoading, handleImageLoad, handleImageError, isValidImageUrl]);
 
   // Auto-process queue when items are added or current loading finishes
   useEffect(() => {
@@ -101,6 +113,9 @@ const ProjectPhotosGallery = () => {
   const queueImageForLoading = useCallback((photoIndex: number, imageIndex: number) => {
     if (imagesLoaded[photoIndex]?.[imageIndex]) return;
 
+    const photo = projectPhotos[photoIndex];
+    if (!photo || !isValidImageUrl(photo.images[imageIndex])) return;
+
     setLoadingQueue(prev => {
       const exists = prev.some(item =>
         item.photoIndex === photoIndex && item.imageIndex === imageIndex
@@ -108,7 +123,7 @@ const ProjectPhotosGallery = () => {
       if (exists) return prev;
       return [...prev, { photoIndex, imageIndex }];
     });
-  }, [imagesLoaded]);
+  }, [imagesLoaded, isValidImageUrl]);
 
   const projectPhotos: ProjectPhoto[] = [
     {
@@ -118,9 +133,9 @@ const ProjectPhotosGallery = () => {
       location: "📍Indian Route 35, Sells, AZ 85634",
       images: [
         "/images/3d-images/snap_005.png",
-        "/images/",
-        "/images/",
-        "/images"
+        "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
+        "https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80"
       ],
       description: "State-of-the-art educational facility with advanced steel structures and sustainable design features."
     },
@@ -131,8 +146,9 @@ const ProjectPhotosGallery = () => {
       location: "📍Marana, Arizona 85653",
       images: [
         "/images/3d-images/shamrock.png",
-        "/",
-        "/"
+        "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
+        "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80",
+        "https://images.unsplash.com/photo-1590479773265-7464e5d48118?w=800&q=80"
       ],
       description: "We provided detailed structural and miscellaneous steel services for Shamrock Foods' state-of-the-art distribution facility."
     },
@@ -143,8 +159,9 @@ const ProjectPhotosGallery = () => {
       location: "📍 455 N. Galvin Parkway, Phoenix, AZ 85008",
       images: [
         "/images/3d-images/phxzoo.png",
-        "/",
-        "/"
+        "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80",
+        "https://images.unsplash.com/photo-1586773860418-d1f249b22234?w=800&q=80",
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80"
       ],
       description: "We provided precision steel detailing for the Veterinary Medical Center at the Phoenix Zoo—a state-of-the-art facility designed."
     },
@@ -155,7 +172,9 @@ const ProjectPhotosGallery = () => {
       location: "📍870 E-Tucson Marketplace Blvd,Tucson,AZ 85713",
       images: [
         "/images/3d-images/tucson-rehab-hospital.png",
-        "/"
+        "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&q=80",
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=80",
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80"
       ],
       description: "We proudly provided full-service steel detailing & connection design for the Tucson Rehabilitation Hospital."
     },
@@ -166,7 +185,9 @@ const ProjectPhotosGallery = () => {
       location: "📍7401 N La Cholla Blvd, Pima County, AZ 85741",
       images: [
         "/images/3d-images/tempo.png",
-        "/"
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
+        "https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&q=80",
+        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80"
       ],
       description: "We were proud to deliver comprehensive steel detailing services for the Uptown MR2 Hotel—an upscale Tempo by Hilton project."
     },
@@ -177,7 +198,9 @@ const ProjectPhotosGallery = () => {
       location: "📍831 Cousins Rd, Vanderwagen, New Mexico 87326",
       images: [
         "/images/3d-images/bia-chi.png",
-        "/"
+        "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
+        "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80"
       ],
       description: "Our detailing team proudly supported the construction of the BIA Chi Chil Tah Boarding School, a vital educational facility."
     },
@@ -188,7 +211,9 @@ const ProjectPhotosGallery = () => {
       location: "📍Prescott, Arizona",
       images: [
         "/images/3d-images/embry-a1.png",
-        "/"
+        "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=800&q=80",
+        "https://images.unsplash.com/photo-1581447109200-bf2769116351?w=800&q=80",
+        "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80"
       ],
       description: "We were honored to provide detailed steel drafting and BIM coordination services for Embry-Riddle Aeronautical University."
     },
@@ -199,7 +224,9 @@ const ProjectPhotosGallery = () => {
       location: "📍Yuma, Arizona",
       images: [
         "/images/3d-images/yuma.png",
-        ""
+        "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80",
+        "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=80",
+        "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&q=80"
       ],
       description: "We provided complete structural and miscellaneous steel detailing services for the Yuma PHS Clinic—an essential public health facility."
     }
@@ -228,19 +255,20 @@ const ProjectPhotosGallery = () => {
             const cardIndex = parseInt(entry.target.getAttribute('data-card-index') || '0');
             setVisibleCards(prev => new Set([...prev, cardIndex]));
 
-            // Queue images for sequential loading (one by one)
+            // Queue valid images for sequential loading
             const photo = projectPhotos[cardIndex];
             if (photo) {
-              // Start with the first image, then queue the rest
-              photo.images.forEach((_, imageIndex) => {
-                queueImageForLoading(cardIndex, imageIndex);
+              photo.images.forEach((imageUrl, imageIndex) => {
+                if (isValidImageUrl(imageUrl)) {
+                  queueImageForLoading(cardIndex, imageIndex);
+                }
               });
             }
           }
         });
       },
       {
-        rootMargin: '200px', // Load earlier for better UX
+        rootMargin: '200px',
         threshold: 0.1
       }
     );
@@ -252,11 +280,12 @@ const ProjectPhotosGallery = () => {
       }
     });
 
-    // Start loading first visible images immediately
+    // Start loading first few valid images immediately
     setTimeout(() => {
-      // Queue first few images for immediate loading
       projectPhotos.slice(0, 2).forEach((photo, photoIndex) => {
-        queueImageForLoading(photoIndex, 0);
+        if (isValidImageUrl(photo.images[0])) {
+          queueImageForLoading(photoIndex, 0);
+        }
       });
     }, 100);
 
@@ -265,17 +294,17 @@ const ProjectPhotosGallery = () => {
         observerRef.current.disconnect();
       }
     };
-  }, [queueImageForLoading]);
+  }, [queueImageForLoading, isValidImageUrl]);
 
   // Auto-slide functionality for individual cards - only when hovered
   useEffect(() => {
     if (hoveredCard === null) return;
 
-    // Priority load all images for hovered card
+    // Priority load all valid images for hovered card
     const hoveredPhoto = projectPhotos[hoveredCard];
     if (hoveredPhoto) {
-      hoveredPhoto.images.forEach((_, imageIndex) => {
-        if (!imagesLoaded[hoveredCard]?.[imageIndex]) {
+      hoveredPhoto.images.forEach((imageUrl, imageIndex) => {
+        if (isValidImageUrl(imageUrl) && !imagesLoaded[hoveredCard]?.[imageIndex]) {
           // Add to front of queue for priority loading
           setLoadingQueue(prev => {
             const exists = prev.some(item =>
@@ -293,14 +322,19 @@ const ProjectPhotosGallery = () => {
         const newIndexes = [...prev];
         const photo = projectPhotos[hoveredCard];
         if (photo && photo.images.length > 1) {
-          newIndexes[hoveredCard] = (newIndexes[hoveredCard] + 1) % photo.images.length;
+          // Find next valid image
+          let nextIndex = (newIndexes[hoveredCard] + 1) % photo.images.length;
+          while (!isValidImageUrl(photo.images[nextIndex]) && nextIndex !== newIndexes[hoveredCard]) {
+            nextIndex = (nextIndex + 1) % photo.images.length;
+          }
+          newIndexes[hoveredCard] = nextIndex;
         }
         return newIndexes;
       });
     }, 1500);
 
     return () => clearInterval(interval);
-  }, [hoveredCard, projectPhotos, imagesLoaded]);
+  }, [hoveredCard, projectPhotos, imagesLoaded, isValidImageUrl]);
 
   const openLightbox = (photo: ProjectPhoto, imageIndex: number) => {
     setSelectedImage({ photo, imageIndex });
@@ -321,13 +355,19 @@ const ProjectPhotosGallery = () => {
           break;
         case 'ArrowLeft':
           if (selectedImage.photo.images.length > 1) {
-            const prevIndex = (selectedImage.imageIndex - 1 + selectedImage.photo.images.length) % selectedImage.photo.images.length;
+            let prevIndex = (selectedImage.imageIndex - 1 + selectedImage.photo.images.length) % selectedImage.photo.images.length;
+            while (!isValidImageUrl(selectedImage.photo.images[prevIndex]) && prevIndex !== selectedImage.imageIndex) {
+              prevIndex = (prevIndex - 1 + selectedImage.photo.images.length) % selectedImage.photo.images.length;
+            }
             setSelectedImage({ ...selectedImage, imageIndex: prevIndex });
           }
           break;
         case 'ArrowRight':
           if (selectedImage.photo.images.length > 1) {
-            const nextIndex = (selectedImage.imageIndex + 1) % selectedImage.photo.images.length;
+            let nextIndex = (selectedImage.imageIndex + 1) % selectedImage.photo.images.length;
+            while (!isValidImageUrl(selectedImage.photo.images[nextIndex]) && nextIndex !== selectedImage.imageIndex) {
+              nextIndex = (nextIndex + 1) % selectedImage.photo.images.length;
+            }
             setSelectedImage({ ...selectedImage, imageIndex: nextIndex });
           }
           break;
@@ -341,7 +381,7 @@ const ProjectPhotosGallery = () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
     };
-  }, [selectedImage]);
+  }, [selectedImage, isValidImageUrl]);
 
   // Row/Column arrangement - alternating layouts
   const getLayoutClass = (index: number) => {
@@ -421,6 +461,7 @@ const ProjectPhotosGallery = () => {
             const currentImageIndex = cardImageIndexes[photoIndex] || 0;
             const currentImage = photo.images[currentImageIndex];
             const isLoaded = imagesLoaded[photoIndex]?.[currentImageIndex];
+            const isValidImage = isValidImageUrl(currentImage);
             
             return (
               <motion.div
@@ -476,7 +517,7 @@ const ProjectPhotosGallery = () => {
                       <div className="absolute bottom-3 right-3 w-6 h-6 border-r-2 border-b-2 border-indigo-500/40 rounded-br-lg opacity-0 group-hover:opacity-100 transition-all duration-500 delay-400 z-10"></div>
 
                       {/* Advanced Sequential Loading State */}
-                      {(!isLoaded || imageLoadingStates[photoIndex]?.[currentImageIndex]) && (
+                      {(!isLoaded || imageLoadingStates[photoIndex]?.[currentImageIndex]) && isValidImage && (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 via-gray-50 to-gray-100 flex items-center justify-center relative">
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite] transform skew-x-12"></div>
                           <div className="flex flex-col items-center space-y-4 z-10">
@@ -484,7 +525,7 @@ const ProjectPhotosGallery = () => {
                             <div className="text-gray-500 text-sm font-medium">
                               {currentlyLoading?.photoIndex === photoIndex && currentlyLoading?.imageIndex === currentImageIndex
                                 ? 'Loading...'
-                                : `In Queue (${loadingQueue.findIndex(item => item.photoIndex === photoIndex && item.imageIndex === currentImageIndex) + 1})`
+                                : `In Queue (${Math.max(0, loadingQueue.findIndex(item => item.photoIndex === photoIndex && item.imageIndex === currentImageIndex) + 1)})`
                               }
                             </div>
                             <div className="w-32 h-1 bg-gray-200 rounded-full overflow-hidden">
@@ -506,31 +547,43 @@ const ProjectPhotosGallery = () => {
                           </div>
                         </div>
                       )}
+
+                      {/* Fallback for invalid images */}
+                      {!isValidImage && (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-200 via-gray-100 to-gray-200 flex items-center justify-center">
+                          <div className="text-gray-500 text-center">
+                            <div className="text-4xl mb-2">🏗️</div>
+                            <div className="text-sm">Image not available</div>
+                          </div>
+                        </div>
+                      )}
                       
                       <AnimatePresence mode="wait">
-                        <motion.div
-                          key={`${photo.id}-${currentImageIndex}`}
-                          className="relative w-full h-full"
-                          initial={{ opacity: 0, scale: 1.1 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          transition={{ duration: 0.5 }}
-                        >
-                          <motion.img
-                            src={currentImage}
-                            alt={photo.title}
-                            className={`w-full h-full object-cover ${
-                              isLoaded ? 'opacity-100' : 'opacity-0'
-                            }`}
-                            loading="lazy"
-                            variants={imageVariants}
-                            whileHover="hover"
-                          />
-                        </motion.div>
+                        {isValidImage && (
+                          <motion.div
+                            key={`${photo.id}-${currentImageIndex}`}
+                            className="relative w-full h-full"
+                            initial={{ opacity: 0, scale: 1.1 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.5 }}
+                          >
+                            <motion.img
+                              src={currentImage}
+                              alt={photo.title}
+                              className={`w-full h-full object-cover ${
+                                isLoaded ? 'opacity-100' : 'opacity-0'
+                              }`}
+                              loading="lazy"
+                              variants={imageVariants}
+                              whileHover="hover"
+                            />
+                          </motion.div>
+                        )}
                       </AnimatePresence>
 
                       {/* Image Navigation Overlay */}
-                      {photo.images.length > 1 && hoveredCard === photoIndex && (
+                      {photo.images.filter(img => isValidImageUrl(img)).length > 1 && hoveredCard === photoIndex && (
                         <motion.div
                           className="absolute inset-0 bg-black/20 flex items-center justify-center"
                           initial={{ opacity: 0 }}
@@ -543,20 +596,20 @@ const ProjectPhotosGallery = () => {
                             onClick={() => openLightbox(photo, currentImageIndex)}
                           >
                             <Eye className="h-5 w-5 mr-2" />
-                            View Gallery ({photo.images.length})
+                            View Gallery ({photo.images.filter(img => isValidImageUrl(img)).length})
                           </Button>
                         </motion.div>
                       )}
 
                       {/* Image Counter */}
-                      {photo.images.length > 1 && (
+                      {photo.images.filter(img => isValidImageUrl(img)).length > 1 && (
                         <motion.div 
                           className="absolute top-4 right-4 bg-black/70 text-white text-sm px-3 py-1 rounded-full"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.2 }}
                         >
-                          {currentImageIndex + 1}/{photo.images.length}
+                          {currentImageIndex + 1}/{photo.images.filter(img => isValidImageUrl(img)).length}
                         </motion.div>
                       )}
 
@@ -675,14 +728,17 @@ const ProjectPhotosGallery = () => {
               </Button>
 
               {/* Navigation Buttons */}
-              {selectedImage.photo.images.length > 1 && (
+              {selectedImage.photo.images.filter(img => isValidImageUrl(img)).length > 1 && (
                 <>
                   <Button
                     size="lg"
                     variant="ghost"
                     className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 text-white hover:bg-black/70 backdrop-blur-sm border border-white/20"
                     onClick={() => {
-                      const prevIndex = (selectedImage.imageIndex - 1 + selectedImage.photo.images.length) % selectedImage.photo.images.length;
+                      let prevIndex = (selectedImage.imageIndex - 1 + selectedImage.photo.images.length) % selectedImage.photo.images.length;
+                      while (!isValidImageUrl(selectedImage.photo.images[prevIndex]) && prevIndex !== selectedImage.imageIndex) {
+                        prevIndex = (prevIndex - 1 + selectedImage.photo.images.length) % selectedImage.photo.images.length;
+                      }
                       setSelectedImage({ ...selectedImage, imageIndex: prevIndex });
                     }}
                   >
@@ -694,7 +750,10 @@ const ProjectPhotosGallery = () => {
                     variant="ghost"
                     className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 text-white hover:bg-black/70 backdrop-blur-sm border border-white/20"
                     onClick={() => {
-                      const nextIndex = (selectedImage.imageIndex + 1) % selectedImage.photo.images.length;
+                      let nextIndex = (selectedImage.imageIndex + 1) % selectedImage.photo.images.length;
+                      while (!isValidImageUrl(selectedImage.photo.images[nextIndex]) && nextIndex !== selectedImage.imageIndex) {
+                        nextIndex = (nextIndex + 1) % selectedImage.photo.images.length;
+                      }
                       setSelectedImage({ ...selectedImage, imageIndex: nextIndex });
                     }}
                   >
@@ -705,22 +764,31 @@ const ProjectPhotosGallery = () => {
 
               {/* Main Image Container */}
               <div className="relative flex items-center justify-center w-full h-full">
-                <motion.img
-                  key={`${selectedImage.photo.id}-${selectedImage.imageIndex}`}
-                  src={selectedImage.photo.images[selectedImage.imageIndex]}
-                  alt={selectedImage.photo.title}
-                  className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
+                {isValidImageUrl(selectedImage.photo.images[selectedImage.imageIndex]) ? (
+                  <motion.img
+                    key={`${selectedImage.photo.id}-${selectedImage.imageIndex}`}
+                    src={selectedImage.photo.images[selectedImage.imageIndex]}
+                    alt={selectedImage.photo.title}
+                    className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                ) : (
+                  <div className="bg-gray-800 text-white p-8 rounded-lg">
+                    <div className="text-center">
+                      <div className="text-6xl mb-4">🏗️</div>
+                      <div>Image not available</div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Image Counter */}
-              {selectedImage.photo.images.length > 1 && (
+              {selectedImage.photo.images.filter(img => isValidImageUrl(img)).length > 1 && (
                 <div className="absolute top-4 left-4 z-20 bg-black/50 text-white px-3 py-2 rounded-lg backdrop-blur-sm border border-white/20">
                   <span className="text-sm font-medium">
-                    {selectedImage.imageIndex + 1} / {selectedImage.photo.images.length}
+                    {selectedImage.imageIndex + 1} / {selectedImage.photo.images.filter(img => isValidImageUrl(img)).length}
                   </span>
                 </div>
               )}

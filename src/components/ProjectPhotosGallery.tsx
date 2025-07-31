@@ -284,18 +284,13 @@ const ProjectPhotosGallery = () => {
             const photoIndex = index;
             const currentImageIndex = cardImageIndexes[photoIndex] || 0;
             const currentImage = photo.images[currentImageIndex];
-            const isLoaded = imagesLoaded[photoIndex]?.[currentImageIndex];
             const isValidImage = isValidImageUrl(currentImage);
-            
+
             return (
               <motion.div
                 key={photo.id}
                 variants={cardVariants}
                 className="group"
-                ref={(el) => {
-                  cardRefs.current[photoIndex] = el;
-                }}
-                data-card-index={photoIndex}
               >
                 <Card
                   className={`

@@ -29,7 +29,7 @@ const ProjectPhotosGallery = () => {
       id: 1,
       title: "Santa Rosa Ranch Community School",
       category: "Commercial",
-      location: "📍Indian Route 35, Sells, AZ 85634",
+      location: "���Indian Route 35, Sells, AZ 85634",
       images: [
         "/images/3d-images/snap_005.png",
         "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
@@ -131,9 +131,11 @@ const ProjectPhotosGallery = () => {
     }
   ];
 
-  // Initialize card image indexes
+  // Initialize card image indexes - start with second image (index 1)
   useEffect(() => {
-    const initialIndexes = projectPhotos.map(() => 0);
+    const initialIndexes = projectPhotos.map(photo =>
+      photo.images.length > 1 ? 1 : 0
+    );
     setCardImageIndexes(initialIndexes);
   }, []);
 

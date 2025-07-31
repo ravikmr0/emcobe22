@@ -284,7 +284,7 @@ const ProjectPhotosGallery = () => {
         >
           {projectPhotos.map((photo, index) => {
             const photoIndex = index;
-            const currentImageIndex = cardImageIndexes[photoIndex] || 0;
+            const currentImageIndex = cardImageIndexes[photoIndex] ?? (photo.images.length > 1 ? 1 : 0);
             const currentImage = photo.images[currentImageIndex];
             const isValidImage = isValidImageUrl(currentImage);
 

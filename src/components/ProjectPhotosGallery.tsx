@@ -391,7 +391,7 @@ const ProjectPhotosGallery = () => {
                       {/* Thumbnail of first image */}
                       {isValidImageUrl(photo.images[0]) && photo.images.length > 1 && (
                         <motion.div
-                          className="absolute bottom-4 left-4 w-16 h-12 rounded-lg overflow-hidden border-2 border-white/80 shadow-lg cursor-pointer hover:scale-110 transition-transform duration-300 z-10"
+                          className="absolute bottom-4 left-4 w-20 h-16 rounded-lg overflow-hidden border-3 border-white shadow-2xl cursor-pointer hover:scale-110 transition-all duration-300 z-10 bg-white"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ delay: 0.3 }}
@@ -408,6 +408,9 @@ const ProjectPhotosGallery = () => {
                             alt={`${photo.title} thumbnail`}
                             className="w-full h-full object-cover"
                           />
+                          <div className="absolute top-1 right-1 bg-blue-600 text-white text-xs px-1 py-0.5 rounded font-semibold">
+                            3D
+                          </div>
                         </motion.div>
                       )}
 

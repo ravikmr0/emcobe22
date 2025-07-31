@@ -408,9 +408,6 @@ const ProjectPhotosGallery = () => {
                             alt={`${photo.title} thumbnail`}
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
-                            <span className="text-white text-xs font-semibold">3D</span>
-                          </div>
                         </motion.div>
                       )}
 

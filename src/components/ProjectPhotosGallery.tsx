@@ -388,9 +388,35 @@ const ProjectPhotosGallery = () => {
                         </motion.div>
                       )}
 
+                      {/* Thumbnail of first image */}
+                      {isValidImageUrl(photo.images[0]) && photo.images.length > 1 && (
+                        <motion.div
+                          className="absolute bottom-4 left-4 w-16 h-12 rounded-lg overflow-hidden border-2 border-white/80 shadow-lg cursor-pointer hover:scale-110 transition-transform duration-300 z-10"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.3 }}
+                          onClick={() => {
+                            setCardImageIndexes(prev => {
+                              const newIndexes = [...prev];
+                              newIndexes[photoIndex] = 0;
+                              return newIndexes;
+                            });
+                          }}
+                        >
+                          <img
+                            src={photo.images[0]}
+                            alt={`${photo.title} thumbnail`}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-200">
+                            <span className="text-white text-xs font-semibold">3D</span>
+                          </div>
+                        </motion.div>
+                      )}
+
                       {/* Image Counter */}
                       {photo.images.filter(img => isValidImageUrl(img)).length > 1 && (
-                        <motion.div 
+                        <motion.div
                           className="absolute top-4 right-4 bg-black/70 text-white text-sm px-3 py-1 rounded-full"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}

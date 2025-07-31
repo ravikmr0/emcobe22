@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Eye, X, ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { Eye, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ProjectPhoto {
   id: number;
@@ -17,113 +17,12 @@ interface ProjectPhoto {
 const ProjectPhotosGallery = () => {
   const [selectedImage, setSelectedImage] = useState<{ photo: ProjectPhoto; imageIndex: number } | null>(null);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [imagesLoaded, setImagesLoaded] = useState<boolean[][]>([]);
   const [cardImageIndexes, setCardImageIndexes] = useState<number[]>([]);
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
-  const [imageLoadingStates, setImageLoadingStates] = useState<boolean[][]>([]);
-  const [loadingQueue, setLoadingQueue] = useState<Array<{photoIndex: number, imageIndex: number}>>([]);
-  const [currentlyLoading, setCurrentlyLoading] = useState<{photoIndex: number, imageIndex: number} | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // Sequential image loading - one by one for better performance
-  const handleImageLoad = useCallback((photoIndex: number, imageIndex: number) => {
-    setImagesLoaded(prev => {
-      const newLoaded = [...prev];
-      if (newLoaded[photoIndex]) {
-        newLoaded[photoIndex][imageIndex] = true;
-      }
-      return newLoaded;
-    });
-    setImageLoadingStates(prev => {
-      const newStates = [...prev];
-      if (newStates[photoIndex]) {
-        newStates[photoIndex][imageIndex] = false;
-      }
-      return newStates;
-    });
-    setCurrentlyLoading(null);
-  }, []);
-
-  const handleImageError = useCallback((photoIndex: number, imageIndex: number) => {
-    setImageLoadingStates(prev => {
-      const newStates = [...prev];
-      if (newStates[photoIndex]) {
-        newStates[photoIndex][imageIndex] = false;
-      }
-      return newStates;
-    });
-    setCurrentlyLoading(null);
-  }, []);
-
-  const startImageLoading = useCallback((photoIndex: number, imageIndex: number) => {
-    setImageLoadingStates(prev => {
-      const newStates = [...prev];
-      if (newStates[photoIndex]) {
-        newStates[photoIndex][imageIndex] = true;
-      }
-      return newStates;
-    });
-  }, []);
 
   // Check if image URL is valid
-  const isValidImageUrl = useCallback((url: string) => {
+  const isValidImageUrl = (url: string) => {
     return url && url !== "/" && url !== "" && url.includes(".");
-  }, []);
-
-  // Process loading queue one by one
-  const processLoadingQueue = useCallback(() => {
-    if (currentlyLoading || loadingQueue.length === 0) return;
-
-    const nextItem = loadingQueue[0];
-    setLoadingQueue(prev => prev.slice(1));
-    setCurrentlyLoading(nextItem);
-
-    const photo = projectPhotos[nextItem.photoIndex];
-    if (photo && photo.images[nextItem.imageIndex] && isValidImageUrl(photo.images[nextItem.imageIndex])) {
-      startImageLoading(nextItem.photoIndex, nextItem.imageIndex);
-
-      const img = new Image();
-      img.onload = () => {
-        handleImageLoad(nextItem.photoIndex, nextItem.imageIndex);
-        // Small delay between loads for smoother experience
-        setTimeout(() => {
-          setCurrentlyLoading(null);
-        }, 100);
-      };
-      img.onerror = () => {
-        handleImageError(nextItem.photoIndex, nextItem.imageIndex);
-      };
-      img.src = photo.images[nextItem.imageIndex];
-    } else {
-      // Skip invalid URLs
-      handleImageError(nextItem.photoIndex, nextItem.imageIndex);
-    }
-  }, [currentlyLoading, loadingQueue, startImageLoading, handleImageLoad, handleImageError, isValidImageUrl]);
-
-  // Auto-process queue when items are added or current loading finishes
-  useEffect(() => {
-    if (!currentlyLoading && loadingQueue.length > 0) {
-      const timer = setTimeout(processLoadingQueue, 50);
-      return () => clearTimeout(timer);
-    }
-  }, [currentlyLoading, loadingQueue, processLoadingQueue]);
-
-  // Add image to loading queue
-  const queueImageForLoading = useCallback((photoIndex: number, imageIndex: number) => {
-    if (imagesLoaded[photoIndex]?.[imageIndex]) return;
-
-    const photo = projectPhotos[photoIndex];
-    if (!photo || !isValidImageUrl(photo.images[imageIndex])) return;
-
-    setLoadingQueue(prev => {
-      const exists = prev.some(item =>
-        item.photoIndex === photoIndex && item.imageIndex === imageIndex
-      );
-      if (exists) return prev;
-      return [...prev, { photoIndex, imageIndex }];
-    });
-  }, [imagesLoaded, isValidImageUrl]);
+  };
 
   const projectPhotos: ProjectPhoto[] = [
     {

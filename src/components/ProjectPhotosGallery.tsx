@@ -287,7 +287,16 @@ const ProjectPhotosGallery = () => {
         >
           {projectPhotos.map((photo, index) => {
             const photoIndex = index;
-            const currentImageIndex = cardImageIndexes[photoIndex] ?? (photo.images.length > 1 ? 1 : 0);
+            // Get current image index with proper fallback
+            let currentImageIndex = cardImageIndexes[photoIndex];
+            if (currentImageIndex === undefined) {
+              // If not initialized yet, try second image first, then first
+              if (photo.images.length > 1 && isValidImageUrl(photo.images[1])) {
+                currentImageIndex = 1;
+              } else {
+                currentImageIndex = 0;
+              }
+            }
             const currentImage = photo.images[currentImageIndex];
             const isValidImage = isValidImageUrl(currentImage);
 

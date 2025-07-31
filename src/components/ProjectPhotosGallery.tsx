@@ -376,6 +376,11 @@ const ProjectPhotosGallery = () => {
                               loading="lazy"
                               variants={imageVariants}
                               whileHover="hover"
+                              onError={(e) => {
+                                // If image fails to load, try to show a different image
+                                console.warn(`Failed to load image: ${currentImage}`);
+                                e.currentTarget.style.display = 'none';
+                              }}
                             />
                           </motion.div>
                         )}

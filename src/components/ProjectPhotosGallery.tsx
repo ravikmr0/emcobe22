@@ -31,10 +31,10 @@ const ProjectPhotosGallery = () => {
       category: "Commercial",
       location: "📍Indian Route 35, Sells, AZ 85634",
       images: [
+        "https://images.unsplash.com/photo-1574958269340-fa927503f3dd?q=80&w=1948&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "/images/3d-images/snap_005.png",
-        "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
-        "https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80"
+        "https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "https://images.unsplash.com/photo-1592066575517-58df903152f2?q=80&w=1996&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
       ],
       description: "State-of-the-art educational facility with advanced steel structures and sustainable design features."
     },

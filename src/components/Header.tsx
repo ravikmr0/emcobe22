@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X, Search, Phone } from "lucide-react";
 import { Input } from "./ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -101,10 +101,15 @@ const Header = ({
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-              Get Quote
-            </Button>
+            <a href="tel:+917500186008">
+              <Button className="bg-green-600 hover:bg-green-700 text-white">
+                <Phone className="mr-2" size={16} />
+                Get Quote
+              </Button>
+            </a>
           </div>
+
+          
 
           {/* Mobile Menu Button */}
           <button
@@ -127,23 +132,7 @@ const Header = ({
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-white border-t border-gray-200"
           >
-            <nav className="px-4 py-4 space-y-2">
-              {/* Mobile Search Bar in Menu */}
-              <div className="mb-4">
-                <form onSubmit={handleSearch} className="relative">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                    <Input
-                      type="text"
-                      placeholder="Search services, projects..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10 pr-4 py-2 w-full text-sm border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                    />
-                  </div>
-                </form>
-              </div>
-              
+            <nav className="px-4 py-4 space-y-2">   
               {navigationItems.map((item) => (
                 <a
                   key={item.name}
@@ -155,9 +144,12 @@ const Header = ({
                 </a>
               ))}
               <div className="pt-4">
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                  Get Quote
-                </Button>
+                <a href="tel:+917500186008">
+                  <Button className="bg-green-600 hover:bg-green-700 text-white">
+                    <Phone className="mr-2" size={16} />
+                   Get Quote
+                  </Button>
+            </a>
               </div>
             </nav>
           </motion.div>

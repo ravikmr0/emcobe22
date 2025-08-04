@@ -177,7 +177,7 @@ const ContactPage = () => {
                             <Input
                               id="firstName"
                               type="text"
-                              placeholder="John"
+                              placeholder="Ravi"
                               value={formData.firstName}
                               onChange={(e) =>
                                 handleInputChange("firstName", e.target.value)
@@ -191,7 +191,7 @@ const ContactPage = () => {
                             <Input
                               id="lastName"
                               type="text"
-                              placeholder="Doe"
+                              placeholder="Kumar"
                               value={formData.lastName}
                               onChange={(e) =>
                                 handleInputChange("lastName", e.target.value)
@@ -208,7 +208,7 @@ const ContactPage = () => {
                             <Input
                               id="email"
                               type="email"
-                              placeholder="john.doe@company.com"
+                              placeholder="ravikumar@emcobe.net"
                               value={formData.email}
                               onChange={(e) =>
                                 handleInputChange("email", e.target.value)
@@ -222,7 +222,7 @@ const ContactPage = () => {
                             <Input
                               id="phone"
                               type="tel"
-                              placeholder="+1 (555) 123-4567"
+                              placeholder="+91 7500186008"
                               value={formData.phone}
                               onChange={(e) =>
                                 handleInputChange("phone", e.target.value)
@@ -279,7 +279,8 @@ const ContactPage = () => {
                               </SelectContent>
                             </Select>
                           </div>
-                          <div className="space-y-2">
+                          {/*  */}
+                          {/* <div className="space-y-2">
                             <Label htmlFor="budget">Project Budget</Label>
                             <Select
                               value={formData.budget}
@@ -311,10 +312,11 @@ const ContactPage = () => {
                                 </SelectItem>
                               </SelectContent>
                             </Select>
-                          </div>
+                          </div> */}
                         </div>
+                        {/*  */}
 
-                        <div className="space-y-2">
+                        {/* <div className="space-y-2">
                           <Label htmlFor="timeline">Project Timeline</Label>
                           <Select
                             value={formData.timeline}
@@ -337,7 +339,7 @@ const ContactPage = () => {
                               <SelectItem value="flexible">Flexible</SelectItem>
                             </SelectContent>
                           </Select>
-                        </div>
+                        </div> */}
 
                         <div className="space-y-2">
                           <Label htmlFor="message">Project Details *</Label>
@@ -429,7 +431,7 @@ const ContactPage = () => {
                           className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
                           size={16}
                         />
-                        15+ Years of Industry Experience
+                        7+ Years of Industry Experience
                       </li>
                       <li className="flex items-start">
                         <CheckCircle
@@ -464,10 +466,12 @@ const ContactPage = () => {
                     <p className="text-gray-600 text-sm mb-4">
                       Call us directly for urgent project requirements.
                     </p>
-                    <Button className="w-full bg-green-600 hover:bg-green-700">
-                      <Phone className="mr-2" size={16} />
-                      Call Now
-                    </Button>
+                     <a href="tel:+917500186008">
+                        <Button className="w-full bg-green-600 hover:bg-green-700">
+                          <Phone className="mr-2" size={16} />
+                          Call Now
+                        </Button>
+                      </a>
                   </CardContent>
                 </Card>
               </motion.div>

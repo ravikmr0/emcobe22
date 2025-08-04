@@ -283,7 +283,7 @@ const ProjectsPage = () => {
               },
               {
                 icon: <Users size={32} />,
-                number: "00+",
+                number: "95+",
                 label: "Happy Clients",
               },
               {

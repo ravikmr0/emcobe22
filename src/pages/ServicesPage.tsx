@@ -280,14 +280,14 @@ const ServicesPage = () => {
           >
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=90"
+                src="/images/building/bia-chi.jpg"
                 alt="Steel Construction Excellence"
                 className="w-full h-96 object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
               <div className="absolute bottom-6 left-6 text-white">
                 <h3 className="text-2xl font-bold mb-2">
-                  Precision Engineering
+                  EMCOBE Engineering
                 </h3>
                 <p className="text-lg opacity-90">
                   Where accuracy meets innovation
@@ -349,7 +349,7 @@ const ServicesPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600">
+      {/* <section className="py-16 bg-blue-600">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial="hidden"
@@ -378,7 +378,7 @@ const ServicesPage = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <Footer />

@@ -76,19 +76,19 @@ const ContactPage = () => {
     {
       icon: <Mail size={20} />,
       title: "Email Address",
-      details: "mail@emcobe.net",
-      action: "mailto:mail@emcobe.net",
+      details: "info@emcobe.net",
+      action: "mailto:info@emcobe.net",
     },
     {
       icon: <Phone size={20} />,
       title: "Phone Number",
-      details: "+91 7982864577",
-      action: "tel:+917982864577",
+      details: "+91  7500186008",
+      action: "tel:+917500186008",
     },
     {
       icon: <MapPin size={20} />,
       title: "Office Location",
-      details: "5th Floor, Logix Technova, Block-C, Delhi, India",
+      details: "EMCOBE, 84, Chandpur Kalan, Dist-Mathura U.P, India",
       action: "#",
     },
     {

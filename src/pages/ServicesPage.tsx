@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Card, CardContent } from "../components/ui/card";
@@ -18,6 +19,8 @@ import {
 } from "lucide-react";
 
 const ServicesPage = () => {
+  const navigate = useNavigate();
+
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -35,8 +38,6 @@ const ServicesPage = () => {
         "Visualization and walkthroughs",
         "Integration with BIM workflows",
       ],
-      image:
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
     },
     {
       icon: <Building2 size={32} />,
@@ -49,8 +50,6 @@ const ServicesPage = () => {
         "Clash detection and resolution",
         "BIM execution planning",
       ],
-      image:
-        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
     },
     {
       icon: <FileSpreadsheet size={32} />,
@@ -63,8 +62,6 @@ const ServicesPage = () => {
         "Cost estimation support",
         "Procurement assistance",
       ],
-      image:
-        "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
     },
     {
       icon: <FileText size={32} />,
@@ -77,8 +74,6 @@ const ServicesPage = () => {
         "Material specifications",
         "Quality control checklists",
       ],
-      image:
-        "https://plus.unsplash.com/premium_photo-1661340695541-ee1ca7efedd0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
     },
     {
       icon: <LayoutGrid size={32} />,
@@ -91,8 +86,6 @@ const ServicesPage = () => {
         "Dimensional coordination",
         "Reference drawings",
       ],
-      image:
-        "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80",
     },
     {
       icon: <Hammer size={32} />,
@@ -105,8 +98,6 @@ const ServicesPage = () => {
         "Architectural steel elements",
         "Custom fabrications",
       ],
-      image:
-        "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
     },
     {
       icon: <Cog size={32} />,
@@ -119,8 +110,6 @@ const ServicesPage = () => {
         "KISS system compatibility",
         "Production optimization",
       ],
-      image:
-        "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80",
     },
     {
       icon: <Factory size={32} />,
@@ -133,8 +122,6 @@ const ServicesPage = () => {
         "Welding details",
         "Quality specifications",
       ],
-      image:
-        "https://plus.unsplash.com/premium_photo-1663088543643-2a1ebfc830b6?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
@@ -192,7 +179,10 @@ const ServicesPage = () => {
               Comprehensive steel detailing solutions powered by cutting-edge
               technology and delivered by experienced professionals.
             </p>
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+            <Button
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3"
+              onClick={() => navigate("/contact")}
+            >
               Get Started Today
             </Button>
           </motion.div>
@@ -219,7 +209,7 @@ const ServicesPage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -230,48 +220,81 @@ const ServicesPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <Card className="h-full hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-0">
-                    <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-                      <div className="p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="text-blue-600 mr-3">
-                            {service.icon}
-                          </div>
-                          <h3 className="text-xl font-semibold text-gray-800">
-                            {service.title}
-                          </h3>
-                        </div>
-                        <p className="text-gray-600 mb-4">
-                          {service.description}
-                        </p>
-                        <ul className="space-y-2">
-                          {service.features.map((feature, featureIndex) => (
-                            <li
-                              key={featureIndex}
-                              className="flex items-center text-sm text-gray-600"
-                            >
-                              <CheckCircle
-                                size={16}
-                                className="text-green-500 mr-2 flex-shrink-0"
-                              />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div className="relative h-48 md:h-full">
-                        <img
-                          src={service.image}
-                          alt={service.title}
-                          className="w-full h-full object-cover rounded-r-lg"
-                        />
-                      </div>
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="text-blue-600 mr-3">{service.icon}</div>
+                      <h3 className="text-xl font-semibold text-gray-800">
+                        {service.title}
+                      </h3>
                     </div>
+                    <p className="text-gray-600 mb-4">{service.description}</p>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, featureIndex) => (
+                        <li
+                          key={featureIndex}
+                          className="flex items-center text-sm text-gray-600"
+                        >
+                          <CheckCircle
+                            size={16}
+                            className="text-green-500 mr-2 flex-shrink-0"
+                          />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* New Featured Image Section */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 to-gray-50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">
+              Excellence in Steel Detailing
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+              Our commitment to precision and quality is reflected in every
+              project we deliver.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            transition={{ duration: 0.8 }}
+            className="relative max-w-4xl mx-auto"
+          >
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=90"
+                alt="Steel Construction Excellence"
+                className="w-full h-96 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-2xl font-bold mb-2">
+                  Precision Engineering
+                </h3>
+                <p className="text-lg opacity-90">
+                  Where accuracy meets innovation
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

@@ -239,7 +239,7 @@ const ContactSection = () => {
                         href="tel:+917500186008"
                         className="text-blue-600 hover:underline"
                       >
-                        (+91) 7500186008
+                        +91 7500186008
                       </a>
                     </div>
                   </div>
@@ -249,7 +249,7 @@ const ContactSection = () => {
                     <div>
                       <p className="font-medium">Address</p>
                       <p className="text-gray-600">
-                       84, Chandpur Kalan, Dist-Mathura U.P. India
+                        84, Chandpur Kalan, Dist-Mathura U.P.India
                       </p>
                     </div>
                   </div>

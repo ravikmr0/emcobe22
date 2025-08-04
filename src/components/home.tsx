@@ -4,7 +4,7 @@ import Header from "./Header";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
 import ServicesGrid from "./ServicesGrid";
-import ContactSection from "./ContactSection";
+import TestimonialsSection from "./TestimonialsSection";
 import Footer from "./Footer";
 import ProjectPhotosGallery from "./ProjectPhotosGallery";
 
@@ -119,7 +119,7 @@ const HomePage = () => {
         </div>
       </motion.div>
 
-      {/* Contact Section */}
+      {/* Testimonials Section */}
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -127,7 +127,7 @@ const HomePage = () => {
         transition={{ duration: 0.6, delay: 0.2 }}
         variants={fadeIn}
       >
-        <ContactSection />
+        <TestimonialsSection />
       </motion.div>
 
       {/* Footer */}

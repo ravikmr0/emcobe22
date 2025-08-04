@@ -1,314 +1,481 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import ContactSection from "../components/ContactSection";
-import { Card, CardContent } from "../components/ui/card";
-import { Mail, Phone, MapPin, Clock, Globe, Users } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
+import { Textarea } from "../components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    company: "",
+    projectType: "",
+    budget: "",
+    timeline: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        company: "",
+        projectType: "",
+        budget: "",
+        timeline: "",
+        message: "",
+      });
+    }, 3000);
+  };
+
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
 
-  const contactMethods = [
+  const contactInfo = [
     {
-      icon: <Mail size={24} />,
-      title: "Email Us",
-      description: "Send us an email and we'll respond within 24 hours",
-      contact: "mail@emcobe.net",
+      icon: <Mail size={20} />,
+      title: "Email Address",
+      details: "mail@emcobe.net",
       action: "mailto:mail@emcobe.net",
     },
     {
-      icon: <Phone size={24} />,
-      title: "Call Us",
-      description: "Speak directly with our team during business hours",
-      contact: "+91 7982864577",
+      icon: <Phone size={20} />,
+      title: "Phone Number",
+      details: "+91 7982864577",
       action: "tel:+917982864577",
     },
     {
-      icon: <MapPin size={24} />,
-      title: "Visit Us",
-      description: "Come to our office for an in-person consultation",
-      contact: "5th Floor, Logix Technova, Block-C, Delhi, India",
+      icon: <MapPin size={20} />,
+      title: "Office Location",
+      details: "5th Floor, Logix Technova, Block-C, Delhi, India",
+      action: "#",
+    },
+    {
+      icon: <Clock size={20} />,
+      title: "Business Hours",
+      details: "Mon - Fri: 9:00 AM - 6:00 PM",
       action: "#",
     },
   ];
 
-  const officeHours = [
-    { day: "Monday - Friday", hours: "9:00 AM - 6:00 PM" },
-    { day: "Saturday", hours: "10:00 AM - 4:00 PM" },
-    { day: "Sunday", hours: "Closed" },
-  ];
-
-  const globalOffices = [
-    {
-      city: "New Delhi",
-      country: "India",
-      address: "5th Floor, Logix Technova, Block-C",
-      phone: "+91 7982864577",
-      email: "delhi@emcobe.net",
-    },
-    {
-      city: "New York",
-      country: "USA",
-      address: "123 Steel Avenue, Manhattan",
-      phone: "+1 (555) 123-4567",
-      email: "usa@emcobe.net",
-    },
-    {
-      city: "London",
-      country: "UK",
-      address: "45 Engineering Street, London",
-      phone: "+44 20 1234 5678",
-      email: "uk@emcobe.net",
-    },
-  ];
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-gray-50">
+      <section className="pt-24 pb-12 bg-gradient-to-br from-blue-600 to-blue-800">
         <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={fadeIn}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center text-white max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-              Get In Touch With Us
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Let's Start Your Project
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Ready to discuss your steel detailing project? Our team of experts
-              is here to help you every step of the way.
+            <p className="text-xl text-blue-100 leading-relaxed">
+              Ready to bring your steel detailing vision to life? Get in touch
+              with our expert team for a personalized consultation and detailed
+              project quote.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Methods */}
+      {/* Main Content */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              How to Reach Us
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Choose the most convenient way to get in touch with our team.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {contactMethods.map((method, index) => (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Contact Form */}
+            <div className="lg:col-span-2">
               <motion.div
-                key={index}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeIn}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6 }}
               >
-                <Card className="h-full hover:shadow-lg transition-shadow duration-300 text-center">
-                  <CardContent className="p-6">
-                    <div className="text-blue-600 mb-4 flex justify-center">
-                      {method.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                      {method.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      {method.description}
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-bold text-gray-800 flex items-center">
+                      <Send className="mr-3 text-blue-600" size={24} />
+                      Project Inquiry Form
+                    </CardTitle>
+                    <p className="text-gray-600">
+                      Fill out the form below and we'll get back to you within
+                      24 hours with a detailed response.
                     </p>
-                    <a
-                      href={method.action}
-                      className="text-blue-600 hover:text-blue-700 font-medium"
-                    >
-                      {method.contact}
-                    </a>
+                  </CardHeader>
+                  <CardContent>
+                    {isSubmitted ? (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center py-12"
+                      >
+                        <CheckCircle
+                          className="mx-auto text-green-500 mb-4"
+                          size={64}
+                        />
+                        <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                          Thank You!
+                        </h3>
+                        <p className="text-gray-600">
+                          Your message has been sent successfully. We'll contact
+                          you soon.
+                        </p>
+                      </motion.div>
+                    ) : (
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Personal Information */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="firstName">First Name *</Label>
+                            <Input
+                              id="firstName"
+                              type="text"
+                              placeholder="John"
+                              value={formData.firstName}
+                              onChange={(e) =>
+                                handleInputChange("firstName", e.target.value)
+                              }
+                              required
+                              className="focus:ring-2 focus:ring-blue-500"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="lastName">Last Name *</Label>
+                            <Input
+                              id="lastName"
+                              type="text"
+                              placeholder="Doe"
+                              value={formData.lastName}
+                              onChange={(e) =>
+                                handleInputChange("lastName", e.target.value)
+                              }
+                              required
+                              className="focus:ring-2 focus:ring-blue-500"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="email">Email Address *</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              placeholder="john.doe@company.com"
+                              value={formData.email}
+                              onChange={(e) =>
+                                handleInputChange("email", e.target.value)
+                              }
+                              required
+                              className="focus:ring-2 focus:ring-blue-500"
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="phone">Phone Number</Label>
+                            <Input
+                              id="phone"
+                              type="tel"
+                              placeholder="+1 (555) 123-4567"
+                              value={formData.phone}
+                              onChange={(e) =>
+                                handleInputChange("phone", e.target.value)
+                              }
+                              className="focus:ring-2 focus:ring-blue-500"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="company">Company Name</Label>
+                          <Input
+                            id="company"
+                            type="text"
+                            placeholder="Your Company Name"
+                            value={formData.company}
+                            onChange={(e) =>
+                              handleInputChange("company", e.target.value)
+                            }
+                            className="focus:ring-2 focus:ring-blue-500"
+                          />
+                        </div>
+
+                        {/* Project Details */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="projectType">Project Type *</Label>
+                            <Select
+                              value={formData.projectType}
+                              onValueChange={(value) =>
+                                handleInputChange("projectType", value)
+                              }
+                            >
+                              <SelectTrigger className="focus:ring-2 focus:ring-blue-500">
+                                <SelectValue placeholder="Select project type" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="steel-detailing">
+                                  Steel Detailing
+                                </SelectItem>
+                                <SelectItem value="3d-modeling">
+                                  3D Modeling
+                                </SelectItem>
+                                <SelectItem value="bim-modeling">
+                                  BIM Modeling
+                                </SelectItem>
+                                <SelectItem value="shop-drawings">
+                                  Shop Drawings
+                                </SelectItem>
+                                <SelectItem value="structural-engineering">
+                                  Structural Engineering
+                                </SelectItem>
+                                <SelectItem value="other">Other</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="budget">Project Budget</Label>
+                            <Select
+                              value={formData.budget}
+                              onValueChange={(value) =>
+                                handleInputChange("budget", value)
+                              }
+                            >
+                              <SelectTrigger className="focus:ring-2 focus:ring-blue-500">
+                                <SelectValue placeholder="Select budget range" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="under-10k">
+                                  Under $10,000
+                                </SelectItem>
+                                <SelectItem value="10k-25k">
+                                  $10,000 - $25,000
+                                </SelectItem>
+                                <SelectItem value="25k-50k">
+                                  $25,000 - $50,000
+                                </SelectItem>
+                                <SelectItem value="50k-100k">
+                                  $50,000 - $100,000
+                                </SelectItem>
+                                <SelectItem value="over-100k">
+                                  Over $100,000
+                                </SelectItem>
+                                <SelectItem value="discuss">
+                                  Prefer to Discuss
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="timeline">Project Timeline</Label>
+                          <Select
+                            value={formData.timeline}
+                            onValueChange={(value) =>
+                              handleInputChange("timeline", value)
+                            }
+                          >
+                            <SelectTrigger className="focus:ring-2 focus:ring-blue-500">
+                              <SelectValue placeholder="Select timeline" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="asap">ASAP</SelectItem>
+                              <SelectItem value="1-2-weeks">
+                                1-2 Weeks
+                              </SelectItem>
+                              <SelectItem value="1-month">1 Month</SelectItem>
+                              <SelectItem value="2-3-months">
+                                2-3 Months
+                              </SelectItem>
+                              <SelectItem value="flexible">Flexible</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label htmlFor="message">Project Details *</Label>
+                          <Textarea
+                            id="message"
+                            placeholder="Please describe your project requirements, specifications, and any additional details that would help us understand your needs better..."
+                            value={formData.message}
+                            onChange={(e) =>
+                              handleInputChange("message", e.target.value)
+                            }
+                            required
+                            rows={6}
+                            className="focus:ring-2 focus:ring-blue-500 resize-none"
+                          />
+                        </div>
+
+                        <Button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-semibold transition-all duration-200"
+                        >
+                          {isSubmitting ? (
+                            <div className="flex items-center justify-center">
+                              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                              Sending Message...
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-center">
+                              <Send className="mr-2" size={20} />
+                              Send Message
+                            </div>
+                          )}
+                        </Button>
+                      </form>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+            </div>
 
-      {/* Contact Form Section */}
-      <ContactSection />
-
-      {/* Office Hours & Global Offices */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Office Hours */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-              transition={{ duration: 0.6 }}
-            >
-              <Card className="h-full">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-6">
-                    <Clock className="text-blue-600 mr-3" size={24} />
-                    <h3 className="text-2xl font-semibold text-gray-800">
-                      Office Hours
-                    </h3>
-                  </div>
-                  <div className="space-y-4">
-                    {officeHours.map((schedule, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0"
-                      >
-                        <span className="font-medium text-gray-700">
-                          {schedule.day}
-                        </span>
-                        <span className="text-gray-600">{schedule.hours}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                    <p className="text-blue-800 text-sm">
-                      <strong>Emergency Support:</strong> Available 24/7 for
-                      critical project issues.
+            {/* Contact Information Sidebar */}
+            <div className="lg:col-span-1">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeIn}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-6"
+              >
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-bold text-gray-800">
+                      Contact Information
+                    </CardTitle>
+                    <p className="text-gray-600 text-sm">
+                      Get in touch with us directly through any of these
+                      channels.
                     </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Global Offices */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeIn}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Card className="h-full">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-6">
-                    <Globe className="text-blue-600 mr-3" size={24} />
-                    <h3 className="text-2xl font-semibold text-gray-800">
-                      Global Offices
-                    </h3>
-                  </div>
-                  <div className="space-y-6">
-                    {globalOffices.map((office, index) => (
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {contactInfo.map((info, index) => (
                       <div
                         key={index}
-                        className="pb-4 border-b border-gray-200 last:border-b-0"
+                        className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                       >
-                        <h4 className="font-semibold text-gray-800 mb-2">
-                          {office.city}, {office.country}
-                        </h4>
-                        <div className="space-y-1 text-sm text-gray-600">
-                          <div className="flex items-start">
-                            <MapPin
-                              size={14}
-                              className="mr-2 mt-0.5 flex-shrink-0"
-                            />
-                            <span>{office.address}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <Phone size={14} className="mr-2 flex-shrink-0" />
-                            <span>{office.phone}</span>
-                          </div>
-                          <div className="flex items-center">
-                            <Mail size={14} className="mr-2 flex-shrink-0" />
-                            <span>{office.email}</span>
-                          </div>
+                        <div className="text-blue-600 mt-1">{info.icon}</div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-gray-800 text-sm">
+                            {info.title}
+                          </h4>
+                          <p className="text-gray-600 text-sm mt-1">
+                            {info.details}
+                          </p>
                         </div>
                       </div>
                     ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+                  </CardContent>
+                </Card>
 
-      {/* FAQ Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Quick answers to common questions about our services and
-              processes.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                question: "What is your typical project turnaround time?",
-                answer:
-                  "Project timelines vary based on complexity and scope. Simple projects can be completed in 1-2 weeks, while complex industrial projects may take 2-3 months. We provide detailed timelines during the initial consultation.",
-              },
-              {
-                question: "Do you work with international clients?",
-                answer:
-                  "Yes, we serve clients globally with offices in India, USA, and UK. We're experienced in working across different time zones and international building standards.",
-              },
-              {
-                question: "What software do you use for steel detailing?",
-                answer:
-                  "We primarily use Tekla Structures and SDS/2 for steel detailing, along with AutoCAD and other industry-standard software for specialized requirements.",
-              },
-              {
-                question: "Can you handle rush projects?",
-                answer:
-                  "Yes, we offer expedited services for urgent projects. Rush projects may incur additional fees, but we're committed to meeting your critical deadlines.",
-              },
-            ].map((faq, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeIn}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="h-full">
+                <Card className="shadow-lg bg-blue-50">
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                      {faq.question}
+                    <h3 className="font-bold text-gray-800 mb-3">
+                      Why Choose EMCOBE?
                     </h3>
-                    <p className="text-gray-600 text-sm">{faq.answer}</p>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-start">
+                        <CheckCircle
+                          className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
+                          size={16}
+                        />
+                        15+ Years of Industry Experience
+                      </li>
+                      <li className="flex items-start">
+                        <CheckCircle
+                          className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
+                          size={16}
+                        />
+                        Global Client Base &amp; 24/7 Support
+                      </li>
+                      <li className="flex items-start">
+                        <CheckCircle
+                          className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
+                          size={16}
+                        />
+                        Advanced Technology &amp; Software
+                      </li>
+                      <li className="flex items-start">
+                        <CheckCircle
+                          className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
+                          size={16}
+                        />
+                        Competitive Pricing &amp; Fast Delivery
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="shadow-lg">
+                  <CardContent className="p-6 text-center">
+                    <h3 className="font-bold text-gray-800 mb-2">
+                      Need Immediate Assistance?
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      Call us directly for urgent project requirements.
+                    </p>
+                    <Button className="w-full bg-green-600 hover:bg-green-700">
+                      <Phone className="mr-2" size={16} />
+                      Call Now
+                    </Button>
                   </CardContent>
                 </Card>
               </motion.div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

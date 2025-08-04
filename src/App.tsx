@@ -5,7 +5,7 @@ import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ContactPage from "./pages/ContactPage";
-import RequestForQuotePage from "./pages/RequestForQuotePage";
+// import RequestForQuotePage from "./pages/RequestForQuotePage";
 import SamplesPage from "./pages/SamplesPage";
 import BlogPage from "./pages/BlogPage";
 import CareersPage from "./pages/CareersPage";
@@ -21,7 +21,7 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/quote" element={<RequestForQuotePage />} />
+        {/* <Route path="/quote" element={<RequestForQuotePage />} /> */}
         <Route path="/samples" element={<SamplesPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/careers" element={<CareersPage />} />

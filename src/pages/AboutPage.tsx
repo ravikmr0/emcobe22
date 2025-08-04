@@ -113,7 +113,7 @@ const AboutPage = () => {
               className="relative"
             >
               <img
-                src="https://plus.unsplash.com/premium_photo-1680124548369-7f35104cebee?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="/images/about.webp"
                 alt="Steel construction site"
                 className="rounded-lg shadow-lg w-full h-96 object-cover"
               />
@@ -201,59 +201,8 @@ const AboutPage = () => {
             variants={fadeIn}
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Our Leadership Team
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Meet the experienced professionals who lead our commitment to
-              excellence in steel detailing and structural engineering.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((member, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeIn}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-              >
-                <Card className="text-center hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-6">
-                    <img
-                      src={`https://api.dicebear.com/7.x/avataaars/svg?seed=leader${index + 1}`}
-                      alt={`Team Member ${index + 1}`}
-                      className="w-24 h-24 rounded-full mx-auto mb-4"
-                    />
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                      {index === 0
-                        ? "John Smith"
-                        : index === 1
-                          ? "Sarah Johnson"
-                          : "Michael Brown"}
-                    </h3>
-                    <p className="text-blue-600 font-medium mb-3">
-                      {index === 0
-                        ? "Chief Executive Officer"
-                        : index === 1
-                          ? "Head of Engineering"
-                          : "Project Director"}
-                    </p>
-                    <p className="text-gray-600 text-sm">
-                      {index === 0
-                        ? "Leading EMCOBE with over 20 years of experience in structural engineering and business development."
-                        : index === 1
-                          ? "Expert in steel detailing with extensive knowledge in Tekla Structures and advanced BIM technologies."
-                          : "Overseeing project delivery and client relationships with a focus on quality and timely completion."}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          > 
+        </motion.div>  
         </div>
       </section>
 

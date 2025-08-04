@@ -17,114 +17,114 @@ const ProjectsPage = () => {
 
   const filters = [
     "All",
-    "Commercial",
-    "Industrial",
-    "Infrastructure",
-    "Residential",
+    "Cherokee Federal",
+    "Sundt Construction",
+    "Mortenson Construction",
+    "Willmeng Construction",
   ];
 
   const projects = [
     {
       id: 1,
-      title: "Metropolitan Office Complex",
-      category: "Commercial",
-      location: "New York, USA",
-      year: "2023",
+      title: "Yuma PHS Clinic – Yuma County Health Department",
+      category: "Mortenson Construction ",
+      location: "Yuma, Arizona",
+      // year: "2023",
       description:
-        "A 40-story office complex featuring advanced steel framework and innovative architectural design.",
+        " We provided complete structural and miscellaneous steel detailing services for the Yuma PHS Clinic—an essential public health facility serving the Yuma County community. This project supports a broad range of health services, requiring precision coordination and compliance with healthcare construction standards.",
       image:
-        "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+        "/images/3d-images/yuma.png",
       stats: {
         // area: "2.5M sq ft",
         // steel: "15,000 tons",
         // duration: "18 months",
       },
-      tags: ["BIM Modeling", "3D Modeling", "Shop Drawings"],
+      tags: [" MEP and architectural disciplines", "Miscellaneous steel detailing ", "BIM model coordination "],
     },
     {
       id: 2,
-      title: "Industrial Manufacturing Plant",
-      category: "Industrial",
-      location: "Detroit, USA",
-      year: "2023",
+      title: "Embry-Riddle Aeronautical University – Prescott Campus",
+      category: "SUNDT Construction ",
+      location: "Prescott, Arizona",
+      // year: "2023",
       description:
-        "Large-scale manufacturing facility with complex steel structures and specialized equipment foundations.",
+        "We were honored to provide detailed steel drafting and BIM coordination services for Embry-Riddle Aeronautical University’s Prescott Campus—an institution known globally for aviation and aerospace excellence. This project involved delivering steel solutions that support the school’s commitment to cutting-edge education and innovation.",
       image:
-        "https://plus.unsplash.com/premium_photo-1682144928788-f2875a886e16?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "/images/3d-images/embry-a1.png",
       stats: {
         // area: "800K sq ft",
         // steel: "8,500 tons",
         // duration: "12 months",
       },
-      tags: ["Fabrication Drawings", "CNC Integration", "Erection Drawings"],
+      tags: ["Structural steel framing for educational facilities", "Miscellaneous steel detailing ", "Full 3D model coordination with clash detection"],
     },
     {
       id: 3,
-      title: "Highway Bridge Construction",
-      category: "Infrastructure",
-      location: "California, USA",
-      year: "2022",
+      title: "BIA Chi Chil Tah Boarding School ",
+      category: "Cherokee Federal",
+      location: "831 Cousins Rd, Vanderwagen, New Mexico 87326",
+      // year: "2022",
       description:
-        "Multi-span highway bridge with innovative steel design and seismic resistance features.",
+        "Our detailing team proudly supported the construction of the BIA Chi Chil Tah Boarding School, a vital educational facility for Native American students in rural New Mexico. This project demanded precision, cultural sensitivity, and efficient coordination with structural engineers and fabricators.",
       image:
-        "https://images.unsplash.com/photo-1493476523860-a6de6ce1b0c3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fFN0ZWVsJTIwU3RydWN0dXJlfGVufDB8fDB8fHww",
+        "/images/3d-images/bia-chi.png",
       stats: {
         // length: "1,200 ft",
         // steel: "12,000 tons",
         // duration: "24 months",
       },
-      tags: ["Structural Analysis", "3D Modeling", "General Arrangement"],
+      tags: ["Full structural steel detailing", "Miscellaneous steel including stairs", "3D BIM coordination and model integration"],
     },
     {
       id: 4,
-      title: "Shopping Mall Complex",
-      category: "Commercial",
-      location: "Texas, USA",
-      year: "2022",
+      title: "Phoenix Zoo – Veterinary Medical Center",
+      category: "Sundt Construction ",
+      location: "455 N. Galvin Parkway, Phoenix, AZ 85008",
+      // year: "2022",
       description:
-        "Large retail complex with intricate steel framework supporting expansive open spaces.",
+        " We provided precision steel detailing for the Veterinary Medical Center at the Phoenix Zoo—a state-of-the-art facility designed to support animal care, research, and wildlife conservation. As part of one of the most visited non-profit zoos in the U.S., this project demanded a high standard of accuracy, coordination, and technical understanding.",
       image:
-        "https://plus.unsplash.com/premium_photo-1661340695541-ee1ca7efedd0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YnVpbGRpbmd8ZW58MHx8MHx8fDA%3D",
+        "/images/3d-images/phxzoo.png",
       stats: {
         // area: "1.8M sq ft",
         // steel: "9,200 tons",
         // duration: "15 months",
       },
-      tags: ["BIM Coordination", "Shop Drawings", "Material Lists"],
+      tags: ["Structural steel framing for the medical ", "Full 3D BIM modeling and clash coordination", "Comprehensive shop "],
     },
     {
       id: 5,
-      title: "Power Plant Infrastructure",
-      category: "Industrial",
-      location: "Ohio, USA",
-      year: "2021",
+      title: "Santa Rosa Ranch Community School",
+      category: "Cherokee Federal",
+      location: "Indian Route 35, Sells, AZ 85634",
+      // year: "2021",
       description:
-        "Critical infrastructure project requiring precision steel detailing for power generation equipment.",
+        "Our team proudly contributed steel detailing services for the Santa Rosa Ranch Community School—an important educational facility serving students in the Tohono O’odham Nation. This culturally significant project required precise coordination and an understanding of community-driven construction priorities.",
       image:
-        "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80",
+        "/images/3d-images/santa.png",
       stats: {
         // area: "500K sq ft",
         // steel: "18,000 tons",
         // duration: "30 months",
       },
-      tags: ["Precision Detailing", "Quality Control", "Technical Drawings"],
+      tags: ["Structural Steel Detailing ", "Educational Buildings", "BIM coordination and clash detection"],
     },
     {
       id: 6,
-      title: "Residential High-Rise",
-      category: "Residential",
-      location: "Florida, USA",
-      year: "2021",
+      title: "Gateway Interchange Business Park",
+      category: "Willmeng Construction",
+      location: "8341 E. Sebring Ave, Mesa, AZ",
+      // year: "2021",
       description:
-        "Luxury residential tower with complex steel framework and architectural steel elements.",
+        "We were proud to provide precision steel detailing services for Gateway Interchange Business Park, a modern industrial and commercial hub strategically located in the fast-growing Mesa Gateway area. This development was designed for flexibility, performance, and long-term business growth.",
       image:
-        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+        "/images/3d-images/gateway.jpg",
       stats: {
         // floors: "45 floors",
         // steel: "6,800 tons",
         // duration: "20 months",
       },
-      tags: ["Architectural Steel", "3D Visualization", "Coordination"],
+      tags: ["Structural steel framing for tilt-up buildings", "Miscellaneous steel elements", "BIM coordination with clash detection"],
     },
   ];
 

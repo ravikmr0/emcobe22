@@ -343,13 +343,13 @@ const ProjectPhotosGallery = () => {
         category: "Commercial",
         location: "📍Indian Route 35, Sells, AZ 85634",
         images: [
-          "https://images.unsplash.com/photo-1574958269340-fa927503f3dd?q=80&w=1948&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "/images/building/santa-rosa.png",
           "/images/3d-images/snap_005.png",
-          "https://images.unsplash.com/photo-1560179707-f14e90ef3623?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "https://images.unsplash.com/photo-1592066575517-58df903152f2?q=80&w=1996&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "/images/site-images/1.jpg",
+          "/images/site-images/5.jpeg",
         ],
         description:
-          "State-of-the-art educational facility with advanced steel structures and sustainable design features.",
+          " Our team proudly contributed steel detailing services for the Santa Rosa Ranch Community School—an important educational facility serving students in the Tohono O’odham Nation. This culturally significant project required precise coordination and an understanding of community-driven construction priorities.",
       },
       {
         id: 2,
@@ -357,13 +357,13 @@ const ProjectPhotosGallery = () => {
         category: "Industrial",
         location: "📍Marana, Arizona 85653",
         images: [
+          "/images/building/b2.webp",
           "/images/3d-images/shamrock.png",
-          "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
-          "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&q=80",
-          "https://images.unsplash.com/photo-1590479773265-7464e5d48118?w=800&q=80",
+          "/images/site-images/4.jpg",
+          "/images/site-images/8.jpeg",
         ],
         description:
-          "We provided detailed structural and miscellaneous steel services for Shamrock Foods' state-of-the-art distribution facility.",
+          " We provided detailed structural and miscellaneous steel services for Shamrock Foods’ state-of-the-art distribution facility in Marana, AZ—supporting one of the largest foodservice providers in the western United States.this high-performance logistics center required precise steel coordination to meet operational demands for cold storage, distribution efficiency, and large-scale warehousing",
       },
       {
         id: 3,
@@ -371,13 +371,13 @@ const ProjectPhotosGallery = () => {
         category: "Healthcare",
         location: "📍 455 N. Galvin Parkway, Phoenix, AZ 85008",
         images: [
+          "/images/building/b3.webp",
           "/images/3d-images/phxzoo.png",
-          "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80",
-          "https://images.unsplash.com/photo-1586773860418-d1f249b22234?w=800&q=80",
-          "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80",
+          "/images/site-images/3.jpeg",
+          "/images/site-images/7.jpeg",
         ],
         description:
-          "We provided precision steel detailing for the Veterinary Medical Center at the Phoenix Zoo—a state-of-the-art facility designed.",
+          "We provided precision steel detailing for the Veterinary Medical Center at the Phoenix Zoo—a state-of-the-art facility designed to support animal care, research, and wildlife conservation. As part of one of the most visited non-profit zoos in the U.S., this project demanded a high standard of accuracy, coordination, and technical understanding.",
       },
       {
         id: 4,
@@ -385,13 +385,13 @@ const ProjectPhotosGallery = () => {
         category: "Healthcare",
         location: "📍870 E-Tucson Marketplace Blvd,Tucson,AZ 85713",
         images: [
-          "/images/3d-images/tucson-rehab-hospital.png",
-          "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&q=80",
-          "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=80",
-          "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
+         "/images/building/b4.webp",
+          "/images/3d-images/tucson.png",
+          "/images/site-images/2.jpeg",
+          "/images/site-images/4.jpg",
         ],
         description:
-          "We proudly provided full-service steel detailing & connection design for the Tucson Rehabilitation Hospital.",
+          "We proudly provided full-service steel detailing & connection design for the Tucson Rehabilitation Hospital—a modern, inpatient facility designed to support physical therapy, recovery, and long-term patient care. This healthcare project required a high degree of precision and compliance with stringent medical construction standards.",
       },
       {
         id: 5,
@@ -399,13 +399,13 @@ const ProjectPhotosGallery = () => {
         category: "Hospitality",
         location: "📍7401 N La Cholla Blvd, Pima County, AZ 85741",
         images: [
+          "/images/building/tempo.png",
           "/images/3d-images/tempo.png",
-          "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
-          "https://images.unsplash.com/photo-1455587734955-081b22074882?w=800&q=80",
-          "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80",
+          "/images/site-images/7.jpeg",
+          "/images/site-images/5.jpeg",
         ],
         description:
-          "We were proud to deliver comprehensive steel detailing services for the Uptown MR2 Hotel—an upscale Tempo by Hilton project.",
+          "We were proud to deliver comprehensive steel detailing services for the Uptown MR2 Hotel—an upscale Tempo by Hilton project designed for modern travelers. This hospitality development by Uptown Lodging, LLC blends comfort and sophistication with structural efficiency.",
       },
       {
         id: 6,
@@ -413,13 +413,13 @@ const ProjectPhotosGallery = () => {
         category: "Educational",
         location: "📍831 Cousins Rd, Vanderwagen, New Mexico 87326",
         images: [
+          "/images/building/bia-chi.png",
           "/images/3d-images/bia-chi.png",
-          "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
-          "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
-          "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+          "/images/site-images/3.jpeg",
+          "/images/site-images/8.jpeg",
         ],
         description:
-          "Our detailing team proudly supported the construction of the BIA Chi Chil Tah Boarding School, a vital educational facility.",
+          "Our detailing team proudly supported the construction of the BIA Chi Chil Tah Boarding School, a vital educational facility for Native American students in rural New Mexico. This project demanded precision, cultural sensitivity, and efficient coordination with structural engineers and fabricators.",
       },
       {
         id: 7,
@@ -427,27 +427,27 @@ const ProjectPhotosGallery = () => {
         category: "Educational",
         location: "📍Prescott, Arizona",
         images: [
+         "/images/building/embry-riddle1.webp",
           "/images/3d-images/embry-a1.png",
-          "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=800&q=80",
-          "https://images.unsplash.com/photo-1581447109200-bf2769116351?w=800&q=80",
-          "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=800&q=80",
+          "/images/building/embry-riddle1.webp",
+          "/images/site-images/2.jpeg",
         ],
         description:
-          "We were honored to provide detailed steel drafting and BIM coordination services for Embry-Riddle Aeronautical University.",
+          "We were honored to provide detailed steel drafting and BIM coordination services for Embry-Riddle Aeronautical University’s Prescott Campus—an institution known globally for aviation and aerospace excellence. This project involved delivering steel solutions that support the school’s commitment to cutting-edge education and innovation.",
       },
       {
         id: 8,
-        title: "Yuma PHS Clinic",
+        title: "Yuma PHS Clinic – Yuma County Health Department",
         category: "Healthcare",
         location: "📍Yuma, Arizona",
         images: [
+         "/images/building/b1.webp",
           "/images/3d-images/yuma.png",
-          "https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=80",
-          "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&q=80",
-          "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800&q=80",
+          "/images/site-images/1.jpg",
+          "/images/site-images/5.jpeg",
         ],
         description:
-          "We provided complete structural and miscellaneous steel detailing services for the Yuma PHS Clinic—an essential public health facility.",
+          "We provided complete structural and miscellaneous steel detailing services for the Yuma PHS Clinic—an essential public health facility serving the Yuma County community. This project supports a broad range of health services, requiring precision coordination and compliance with healthcare construction standards.",
       },
     ],
     [],

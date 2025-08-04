@@ -21,7 +21,7 @@ const Header = ({
     { name: "About Us", href: "/about" },
     { name: "Our Services", href: "/services" },
     { name: "Projects", href: "/projects" },
-    { name: "Request For Quote", href: "/quote" },
+    // { name: "Request For Quote", href: "/quote" },
     // { name: "Samples", href: "/samples" },
     // { name: "Blog", href: "/blog" },
     { name: "Careers", href: "/careers" },

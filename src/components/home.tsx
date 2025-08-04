@@ -4,7 +4,7 @@ import Header from "./Header";
 import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
 import ServicesGrid from "./ServicesGrid";
-import TestimonialsSection from "./TestimonialsSection";
+// import TestimonialsSection from "./TestimonialsSection";
 import Footer from "./Footer";
 import ProjectPhotosGallery from "./ProjectPhotosGallery";
 
@@ -127,7 +127,7 @@ const HomePage = () => {
         transition={{ duration: 0.6, delay: 0.2 }}
         variants={fadeIn}
       >
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
       </motion.div>
 
       {/* Footer */}

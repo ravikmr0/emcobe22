@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   Carousel,
   CarouselContent,
@@ -30,6 +31,7 @@ const HeroSection = ({
   ],
   logoSrc = "/logo.jpg",
 }: HeroSectionProps) => {
+  const navigate = useNavigate();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -69,6 +71,7 @@ const HeroSection = ({
           loop: true,
           align: "start",
           skipSnaps: false,
+          dragFree: false,
         }}
         setApi={setApi}
       >
@@ -91,8 +94,14 @@ const HeroSection = ({
         </CarouselContent>
 
         {/* Enhanced Navigation Arrows */}
-        <CarouselPrevious className="left-6 h-12 w-12 border-2 border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-all duration-300" />
-        <CarouselNext className="right-6 h-12 w-12 border-2 border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-all duration-300" />
+        <CarouselPrevious
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-30 h-12 w-12 border-2 border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-all duration-300 rounded-full"
+          onClick={() => setIsAutoPlaying(false)}
+        />
+        <CarouselNext
+          className="absolute right-6 top-1/2 -translate-y-1/2 z-30 h-12 w-12 border-2 border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-all duration-300 rounded-full"
+          onClick={() => setIsAutoPlaying(false)}
+        />
       </Carousel>
 
       {/* Slide Indicators */}
@@ -100,13 +109,22 @@ const HeroSection = ({
         {Array.from({ length: count }).map((_, index) => (
           <button
             key={index}
+            type="button"
             title={`Go to slide ${index + 1}`}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
               index === current - 1
                 ? "w-8 bg-white"
                 : "w-2 bg-white/50 hover:bg-white/70"
             }`}
-            onClick={() => api?.scrollTo(index)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log("Indicator clicked", index, api);
+              if (api) {
+                api.scrollTo(index);
+                setIsAutoPlaying(false);
+              }
+            }}
           />
         ))}
       </div>
@@ -185,6 +203,7 @@ const HeroSection = ({
           <Button
             size="lg"
             className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-4 text-lg font-semibold text-white shadow-2xl transition-all duration-300 hover:from-blue-700 hover:to-blue-800 hover:shadow-blue-500/25 hover:scale-105"
+            onClick={() => navigate("/services")}
           >
             <span className="relative z-10">Explore Our Services</span>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -193,6 +212,7 @@ const HeroSection = ({
             size="lg"
             variant="outline"
             className="group relative overflow-hidden border-2 border-white/50 bg-white/10 px-8 py-4 text-lg font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:border-white hover:scale-105 hover:shadow-2xl"
+            onClick={() => navigate("/contact")}
           >
             <span className="relative z-10">Get In Touch</span>
           </Button>
@@ -207,7 +227,6 @@ const HeroSection = ({
         transition={{ delay: 1.5, duration: 1 }}
       >
         <div className="flex flex-col items-center">
-  
           <div className="relative">
             <div className="h-10 w-6 rounded-full border-2 border-white/50 bg-white/10 backdrop-blur-sm">
               <motion.div

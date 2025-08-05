@@ -13,13 +13,15 @@ const AboutSection = ({
   title = "Who We Are",
   description = "At Emcobe Engineering & Consultants, we specialize in delivering precise, high-quality steel detailing solutions for the industrial and commercial sectors. Backed by deep expertise and years of experience, we are committed to excellence in every project we undertake.",
   expertise = [
-    "Tekla Structures",
-    "SDS/2",
-    "	Structural & Miscellaneous Steel Detailing",
+    "Structural & Miscellaneous Steel Detailing",
+    "Code-Compliant Detailing Solutions",
+    "Structural & Miscellaneous Steel Detailing",
     "3D Modeling & BIM Integration",
     "Connection Design & Shop Drawings",
     "Standards Compliance & Quality Assurance",
+    "Standards Compliance & Quality Assurance",
     "Project Management & Coordination",
+    "Project Collaboration & Efficiency",
   ],
   values = [
     {
@@ -96,8 +98,7 @@ const AboutSection = ({
               Our Approach
             </h3>
             <p className="text-gray-600 mb-4">
-              We combine technical expertise with a commitment to quality and
-              client satisfaction.
+              At Emcobe Engineering & Consultants, our approach is driven by precision, collaboration, and commitment to quality. Every project is treated as a partnership—where understanding client needs and delivering practical, efficient solutions is our priority.
             </p>
             <ul className="space-y-2">
               <li className="flex items-center">
@@ -113,7 +114,7 @@ const AboutSection = ({
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span>Precision in every detail</span>
+                <span><b>Client-Centered</b> We listen, adapt, and tailor our services.</span>
               </li>
               <li className="flex items-center">
                 <svg
@@ -128,7 +129,7 @@ const AboutSection = ({
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span>Industry-standard compliance</span>
+                <span><b>Detail-Oriented:</b> Accuracy is at the core of what we do—ensuring.</span>
               </li>
               <li className="flex items-center">
                 <svg
@@ -143,7 +144,22 @@ const AboutSection = ({
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span>Innovative solutions</span>
+                <span><b>Tech-Driven:</b> We leverage the latest tools and technologies.</span>
+              </li>
+              <li className="flex items-center">
+                <svg
+                  className="w-5 h-5 text-blue-600 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+                <span><b>Efficient & Transparent:</b> Timely communication and streamlined.</span>
               </li>
             </ul>
           </motion.div>

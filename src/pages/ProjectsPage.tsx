@@ -18,7 +18,7 @@ const ProjectsPage = () => {
   const filters = [
     "All",
     "Cherokee Federal",
-    "Sundt Construction",
+    "SUNDT Construction",
     "Mortenson Construction",
     "Willmeng Construction",
   ];
@@ -27,7 +27,7 @@ const ProjectsPage = () => {
     {
       id: 1,
       title: "Yuma PHS Clinic – Yuma County Health Department",
-      category: "Mortenson Construction ",
+      category: "Mortenson Construction",
       location: "Yuma, Arizona",
       // year: "2023",
       description:
@@ -44,7 +44,7 @@ const ProjectsPage = () => {
     {
       id: 2,
       title: "Embry-Riddle Aeronautical University – Prescott Campus",
-      category: "SUNDT Construction ",
+      category: "SUNDT Construction",
       location: "Prescott, Arizona",
       // year: "2023",
       description:
@@ -78,7 +78,7 @@ const ProjectsPage = () => {
     {
       id: 4,
       title: "Phoenix Zoo – Veterinary Medical Center",
-      category: "Sundt Construction ",
+      category: "SUNDT Construction",
       location: "455 N. Galvin Parkway, Phoenix, AZ 85008",
       // year: "2022",
       description:
@@ -125,6 +125,91 @@ const ProjectsPage = () => {
         // duration: "20 months",
       },
       tags: ["Structural steel framing for tilt-up buildings", "Miscellaneous steel elements", "BIM coordination with clash detection"],
+    },
+    {
+      id: 7,
+      title: "Uptown MR2 Hotel – Tempo by Hilton",
+      category: "Willmeng Construction",
+      location: "7401 N La Cholla Blvd, Pima County, AZ 85741",
+      // year: "2021",
+      description:
+        "We were proud to deliver comprehensive steel detailing services for the Uptown MR2 Hotel—an upscale Tempo by Hilton project designed for modern travelers. This hospitality development by Uptown Lodging, LLC blends comfort and sophistication with structural efficiency.",
+      image:
+        "/images/3d-images/tempo.png",
+      stats: {
+        // floors: "45 floors",
+        // steel: "6,800 tons",
+        // duration: "20 months",
+      },
+      tags: ["Structural steel framing for hotel guest floors", "•	Miscellaneous steel: stair towers, railings", "BIM coordination for seamless integration "],
+    },
+    {
+      id: 8,
+      title: "Tucson Rehabilitation Hospital",
+      category: "MYCON",
+      location: "870 E Tucson Marketplace Blvd, Tucson, AZ 85713",
+      // year: "2021",
+      description:
+       "We proudly provided full-service steel detailing & connection design for the Tucson Rehabilitation Hospital—a modern, inpatient facility designed to support physical therapy, recovery, and long-term patient care. This healthcare project required a high degree of precision and compliance with stringent medical construction standards.",
+      image:
+        "/images/3d-images/tucson.png",
+      stats: {
+        // floors: "45 floors",
+        // steel: "6,800 tons",
+        // duration: "20 months",
+      },
+      tags: ["Structural steel framing for tilt-up buildings", "Comprehensive shop and erection drawings ", "BIM coordination with clash detection"],
+    },
+    {
+      id: 9,
+      title: "Shamrock Foods Distribution Facility",
+      category: "Willmeng Construction",
+      location: "Marana, Arizona 85653",
+      // year: "2021",
+      description:
+      "We provided detailed structural and miscellaneous steel services for Shamrock Foods’ state-of-the-art distribution facility in Marana, AZ—supporting one of the largest foodservice providers in the western United States.",
+      image:
+        "/images/3d-images/shamrock.png",
+      stats: {
+        // floors: "45 floors",
+        // steel: "6,800 tons",
+        // duration: "20 months",
+      },
+      tags: ["Structural steel framing for tilt-up buildings", "Miscellaneous steel elements", "BIM coordination with clash detection"],
+    },
+    {
+      id: 10,
+      title: "Heritage Academy – Maricopa Campus",
+      category: "Willmeng Construction",
+      location: "Maricopa, AZ 85138",
+      // year: "2021",
+      description:
+        "We proudly provided complete steel detailing services for the Heritage Academy campus in Maricopa, AZ—an inspiring educational facility designed to serve the growing student population in this fast-developing area.",
+      image:
+        "/images/3d-images/heritage.png",
+      stats: {
+        // floors: "45 floors",
+        // steel: "6,800 tons",
+        // duration: "20 months",
+      },
+      tags: ["Structural steel framing for academic", "Multi-Purpose Buildings", "Miscellaneous steel elements", "Full BIM coordination with clash detection"],
+    },
+    {
+      id: 11,
+      title: "DICK'S Sporting Goods – Glendale, AZ",
+      category: "VCC Construction",
+      location: "Glendale, Arizona 85308",
+      // year: "2021",
+      description:
+        "We provided full-service steel detailing for the DICK'S Sporting Goods retail location in Glendale, AZ—supporting the creation of a modern, large-format sporting goods store built for performance and durability.",
+      image:
+        "/images/3d-images/dhos.png",
+      stats: {
+        // floors: "45 floors",
+        // steel: "6,800 tons",
+        // duration: "20 months",
+      },
+      tags: ["Structural Steel Framing", "Miscellaneous Steel", "3D model coordination (BIM)", "Full BIM coordination with clash detection"],
     },
   ];
 

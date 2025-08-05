@@ -76,8 +76,8 @@ const ContactPage = () => {
     {
       icon: <Mail size={20} />,
       title: "Email Address",
-      details: "info@emcobe.net",
-      action: "mailto:info@emcobe.net",
+      details: "mail@emcobe.net",
+      action: "mailto:mail@emcobe.net",
     },
     {
       icon: <Phone size={20} />,
@@ -177,7 +177,7 @@ const ContactPage = () => {
                             <Input
                               id="firstName"
                               type="text"
-                              placeholder="Ravi"
+                              placeholder="Enter Your First Name"
                               value={formData.firstName}
                               onChange={(e) =>
                                 handleInputChange("firstName", e.target.value)
@@ -191,7 +191,7 @@ const ContactPage = () => {
                             <Input
                               id="lastName"
                               type="text"
-                              placeholder="Kumar"
+                              placeholder="Enter Your Last Name"
                               value={formData.lastName}
                               onChange={(e) =>
                                 handleInputChange("lastName", e.target.value)
@@ -208,7 +208,7 @@ const ContactPage = () => {
                             <Input
                               id="email"
                               type="email"
-                              placeholder="ravikumar@emcobe.net"
+                              placeholder="Enter Your Email Address"
                               value={formData.email}
                               onChange={(e) =>
                                 handleInputChange("email", e.target.value)
@@ -222,7 +222,7 @@ const ContactPage = () => {
                             <Input
                               id="phone"
                               type="tel"
-                              placeholder="+91 7500186008"
+                              placeholder="Enter Your Phone Number"
                               value={formData.phone}
                               onChange={(e) =>
                                 handleInputChange("phone", e.target.value)
@@ -247,7 +247,7 @@ const ContactPage = () => {
                         </div>
 
                         {/* Project Details */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <Label htmlFor="projectType">Project Type *</Label>
                             <Select
@@ -278,7 +278,7 @@ const ContactPage = () => {
                                 <SelectItem value="other">Other</SelectItem>
                               </SelectContent>
                             </Select>
-                          </div>
+                          </div> */}
                           {/*  */}
                           {/* <div className="space-y-2">
                             <Label htmlFor="budget">Project Budget</Label>
@@ -313,7 +313,7 @@ const ContactPage = () => {
                               </SelectContent>
                             </Select>
                           </div> */}
-                        </div>
+                        {/* </div> */}
                         {/*  */}
 
                         {/* <div className="space-y-2">

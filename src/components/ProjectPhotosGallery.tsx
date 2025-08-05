@@ -337,117 +337,136 @@ const ProjectPhotosGallery = () => {
   // Memoized project photos data to prevent recreation on every render
   const projectPhotos: ProjectPhoto[] = useMemo(
     () => [
+      // {
+      //   id: 1,
+      //   title: "Santa Rosa Ranch Community School",
+      //   category: "Commercial",
+      //   location: "📍Indian Route 35, Sells, AZ 85634",
+      //   images: [
+      //     "/images/3d-iamges/santa.png",
+      //     "/images/3d-images/snap_005.png",
+      //     // "/images/site-images/1.jpg",
+      //     // "/images/site-images/5.jpeg",
+      //   ],
+      //   description:
+      //     " Our team proudly contributed steel detailing services for the Santa Rosa Ranch Community School—an important educational facility serving students in the Tohono O’odham Nation. This culturally significant project required precise coordination and an understanding of community-driven construction priorities.",
+      // },
+      // {
+      //   id: 2,
+      //   title: "Shamrock Foods Distribution Facility",
+      //   category: "Industrial",
+      //   location: "📍Marana, Arizona 85653",
+      //   images: [
+      //     "/images/building/b2.webp",
+      //     "/images/3d-images/shamrock.png",
+      //     "/images/site-images/4.jpg",
+      //     "/images/site-images/8.jpeg",
+      //   ],
+      //   description:
+      //     " We provided detailed structural and miscellaneous steel services for Shamrock Foods’ state-of-the-art distribution facility in Marana, AZ—supporting one of the largest foodservice providers in the western United States.this high-performance logistics center required precise steel coordination to meet operational demands for cold storage, distribution efficiency, and large-scale warehousing",
+      // },
+      // {
+      //   id: 3,
+      //   title: "Phoenix Zoo – Veterinary Medical Center",
+      //   category: "Healthcare",
+      //   location: "📍 455 N. Galvin Parkway, Phoenix, AZ 85008",
+      //   images: [
+      //     "/images/building/b3.webp",
+      //     "/images/3d-images/phxzoo.png",
+      //     "/images/site-images/3.jpeg",
+      //     "/images/site-images/7.jpeg",
+      //   ],
+      //   description:
+      //     "We provided precision steel detailing for the Veterinary Medical Center at the Phoenix Zoo—a state-of-the-art facility designed to support animal care, research, and wildlife conservation. As part of one of the most visited non-profit zoos in the U.S., this project demanded a high standard of accuracy, coordination, and technical understanding.",
+      // },
       {
         id: 1,
-        title: "Santa Rosa Ranch Community School",
-        category: "Commercial",
-        location: "📍Indian Route 35, Sells, AZ 85634",
-        images: [
-          "/images/building/santa-rosa.png",
-          "/images/3d-images/snap_005.png",
-          "/images/site-images/1.jpg",
-          "/images/site-images/5.jpeg",
-        ],
-        description:
-          " Our team proudly contributed steel detailing services for the Santa Rosa Ranch Community School—an important educational facility serving students in the Tohono O’odham Nation. This culturally significant project required precise coordination and an understanding of community-driven construction priorities.",
-      },
-      {
-        id: 2,
-        title: "Shamrock Foods Distribution Facility",
-        category: "Industrial",
-        location: "📍Marana, Arizona 85653",
-        images: [
-          "/images/building/b2.webp",
-          "/images/3d-images/shamrock.png",
-          "/images/site-images/4.jpg",
-          "/images/site-images/8.jpeg",
-        ],
-        description:
-          " We provided detailed structural and miscellaneous steel services for Shamrock Foods’ state-of-the-art distribution facility in Marana, AZ—supporting one of the largest foodservice providers in the western United States.this high-performance logistics center required precise steel coordination to meet operational demands for cold storage, distribution efficiency, and large-scale warehousing",
-      },
-      {
-        id: 3,
-        title: "Phoenix Zoo – Veterinary Medical Center",
-        category: "Healthcare",
-        location: "📍 455 N. Galvin Parkway, Phoenix, AZ 85008",
-        images: [
-          "/images/building/b3.webp",
-          "/images/3d-images/phxzoo.png",
-          "/images/site-images/3.jpeg",
-          "/images/site-images/7.jpeg",
-        ],
-        description:
-          "We provided precision steel detailing for the Veterinary Medical Center at the Phoenix Zoo—a state-of-the-art facility designed to support animal care, research, and wildlife conservation. As part of one of the most visited non-profit zoos in the U.S., this project demanded a high standard of accuracy, coordination, and technical understanding.",
-      },
-      {
-        id: 4,
         title: "Tucson Rehabilitation Hospital",
         category: "Healthcare",
         location: "📍870 E-Tucson Marketplace Blvd,Tucson,AZ 85713",
         images: [
-         "/images/building/b4.webp",
+          "/images/building/tucson.avif",
           "/images/3d-images/tucson.png",
-          "/images/site-images/2.jpeg",
-          "/images/site-images/4.jpg",
+          "/images/site-images/tucson1.jpg",
+          "/images/site-images/tucson2.png",
+          "/images/site-images/tucson3.png",
         ],
         description:
           "We proudly provided full-service steel detailing & connection design for the Tucson Rehabilitation Hospital—a modern, inpatient facility designed to support physical therapy, recovery, and long-term patient care. This healthcare project required a high degree of precision and compliance with stringent medical construction standards.",
       },
       {
-        id: 5,
+        id: 2,
         title: "Uptown MR2 Hotel – Tempo by Hilton",
         category: "Hospitality",
         location: "📍7401 N La Cholla Blvd, Pima County, AZ 85741",
         images: [
           "/images/building/tempo.png",
           "/images/3d-images/tempo.png",
-          "/images/site-images/7.jpeg",
-          "/images/site-images/5.jpeg",
+          "/images/3d-images/tempo1.jpg",
         ],
         description:
           "We were proud to deliver comprehensive steel detailing services for the Uptown MR2 Hotel—an upscale Tempo by Hilton project designed for modern travelers. This hospitality development by Uptown Lodging, LLC blends comfort and sophistication with structural efficiency.",
       },
+      // {
+      //   id: 6,
+      //   title: "BIA Chi Chil Tah Boarding School",
+      //   category: "Educational",
+      //   location: "📍831 Cousins Rd, Vanderwagen, New Mexico 87326",
+      //   images: [
+      //     "/images/building/bia-chi.png",
+      //     "/images/3d-images/bia-chi.png",
+      //     "/images/site-images/3.jpeg",
+      //     "/images/site-images/8.jpeg",
+      //   ],
+      //   description:
+      //     "Our detailing team proudly supported the construction of the BIA Chi Chil Tah Boarding School, a vital educational facility for Native American students in rural New Mexico. This project demanded precision, cultural sensitivity, and efficient coordination with structural engineers and fabricators.",
+      // },
       {
-        id: 6,
-        title: "BIA Chi Chil Tah Boarding School",
-        category: "Educational",
-        location: "📍831 Cousins Rd, Vanderwagen, New Mexico 87326",
-        images: [
-          "/images/building/bia-chi.png",
-          "/images/3d-images/bia-chi.png",
-          "/images/site-images/3.jpeg",
-          "/images/site-images/8.jpeg",
-        ],
-        description:
-          "Our detailing team proudly supported the construction of the BIA Chi Chil Tah Boarding School, a vital educational facility for Native American students in rural New Mexico. This project demanded precision, cultural sensitivity, and efficient coordination with structural engineers and fabricators.",
-      },
-      {
-        id: 7,
+        id: 3,
         title: "Embry-Riddle Aeronautical University",
         category: "Educational",
         location: "📍Prescott, Arizona",
         images: [
-         "/images/building/embry-riddle1.webp",
           "/images/3d-images/embry-a1.png",
           "/images/building/embry-riddle1.webp",
-          "/images/site-images/2.jpeg",
+          "/images/building/embry-riddle2.webp",
+           "/images/building/embry-riddle3.webp",
         ],
         description:
           "We were honored to provide detailed steel drafting and BIM coordination services for Embry-Riddle Aeronautical University’s Prescott Campus—an institution known globally for aviation and aerospace excellence. This project involved delivering steel solutions that support the school’s commitment to cutting-edge education and innovation.",
       },
+      // {
+      //   id: 8,
+      //   title: "Yuma PHS Clinic – Yuma County Health Department",
+      //   category: "Healthcare",
+      //   location: "📍Yuma, Arizona",
+      //   images: [
+      //    "/images/building/b1.webp",
+      //     "/images/3d-images/yuma.png",
+      //     "/images/site-images/1.jpg",
+      //     "/images/site-images/5.jpeg",
+      //   ],
+      //   description:
+      //     "We provided complete structural and miscellaneous steel detailing services for the Yuma PHS Clinic—an essential public health facility serving the Yuma County community. This project supports a broad range of health services, requiring precision coordination and compliance with healthcare construction standards.",
+      // },
       {
-        id: 8,
-        title: "Yuma PHS Clinic – Yuma County Health Department",
-        category: "Healthcare",
-        location: "📍Yuma, Arizona",
+        id: 4,
+        title: "DICK'S Sporting Goods – Glendale, AZ",
+        category: "VCC Construction",
+        location: "📍Glendale, Arizona 85308",
         images: [
-         "/images/building/b1.webp",
-          "/images/3d-images/yuma.png",
-          "/images/site-images/1.jpg",
+         "/images/building/dicks.jpg",
+          "/images/3d-images/dicks.png",
+          "/images/site-images/8.jpeg",
+          "/images/site-images/7.jpeg",
           "/images/site-images/5.jpeg",
+          "/images/site-images/6.jpg",
+          "/images/site-images/7.jpeg",
+          "/images/site-images/3.jpeg",
+
         ],
         description:
-          "We provided complete structural and miscellaneous steel detailing services for the Yuma PHS Clinic—an essential public health facility serving the Yuma County community. This project supports a broad range of health services, requiring precision coordination and compliance with healthcare construction standards.",
+          "We provided full-service steel detailing for the DICK'S Sporting Goods retail location in Glendale, AZ—supporting the creation of a modern, large-format sporting goods store built for performance and durability.",
       },
     ],
     [],

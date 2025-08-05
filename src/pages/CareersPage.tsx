@@ -81,13 +81,15 @@ const CareersPage = () => {
                   If you're ready to take the next step in your career, we'd
                   love to hear from you.
                 </p>
-                <Button
-                  size="lg"
-                  className="bg-blue-600 hover:bg-blue-700 inline-flex items-center gap-2"
-                >
-                  <Mail className="h-5 w-5" />
-                  Send your resume to [your email]
-                </Button>
+                <a href="mailto:mail@emcobe.net" className="inline-block">
+                    <Button
+                      size="lg"
+                      className="bg-blue-600 hover:bg-blue-700 inline-flex items-center gap-2 text-white"
+                    >
+                      <Mail className="h-5 w-5" />
+                      Send your resume 
+                    </Button>
+                </a>
               </div>
             </div>
           </div>

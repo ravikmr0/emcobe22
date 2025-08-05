@@ -89,7 +89,7 @@ const ServicesPage = () => {
     },
     {
       icon: <Hammer size={32} />,
-      title: "Miscellaneous Steel Detailing",
+      title: "Miscellaneous Erection & Shop Drawings",
       description:
         "Specialized drawings for miscellaneous steel components and erection guidance.",
       features: [
@@ -101,7 +101,7 @@ const ServicesPage = () => {
     },
     {
       icon: <Cog size={32} />,
-      title: "CNC/FABTROL/KISS Integration",
+      title: "CNC/FABTROL/KSS/POWER FAB",
       description:
         "Seamless integration with fabrication software for optimized production workflows.",
       features: [
@@ -113,7 +113,7 @@ const ServicesPage = () => {
     },
     {
       icon: <Factory size={32} />,
-      title: "Fabrication Drawings",
+      title: "Esti Modeling",
       description:
         "Detailed drawings for fabrication with precise measurements and assembly instructions.",
       features: [

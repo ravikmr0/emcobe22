@@ -36,7 +36,7 @@ const Footer = ({
   ];
 
   const contactInfo = {
-    email: "info@emcobe.net",
+    email: "mail@emcobe.net",
     phone: "+91 7500186008",
     address: "84, Chandpur Kalan, Dist-Mathura U.P.India",
   };

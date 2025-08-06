@@ -154,7 +154,7 @@ const ServicesPage = () => {
       step: "05",
       title: "Delivery & Support",
       description:
-        "We deliver the final drawings and provide ongoing support throughout the fabrication process.",
+        "We deliver the final drawings and provide ongoing support throughout the fabrication & Construction process.",
     },
   ];
 

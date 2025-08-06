@@ -72,8 +72,7 @@ const AboutSection = ({
               Our Expertise
             </h3>
             <p className="text-gray-600 mb-4">
-              We leverage industry-leading technologies to deliver precise and
-              efficient steel detailing solutions.
+              At Emcobe Engineering & Consultants, we bring a deep understanding of structural steel detailing, backed by industry experience and advanced technologies.
             </p>
             <div className="flex flex-wrap gap-3">
               {expertise.map((tech, index) => (

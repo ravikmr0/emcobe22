@@ -203,7 +203,7 @@ const ProjectsPage = () => {
       description:
         "We provided full-service steel detailing for the DICK'S Sporting Goods retail location in Glendale, AZ—supporting the creation of a modern, large-format sporting goods store built for performance and durability.",
       image:
-        "/images/3d-images/dhos.png",
+        "/images/3d-images/dicks.png",
       stats: {
         // floors: "45 floors",
         // steel: "6,800 tons",
@@ -339,7 +339,7 @@ const ProjectsPage = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section
       <section className="py-16 bg-blue-600">
         <div className="container mx-auto px-4">
           <motion.div
@@ -400,7 +400,7 @@ const ProjectsPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-16">
@@ -420,12 +420,16 @@ const ProjectsPage = () => {
               our expert detailing services.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
-                Start Your Project
-              </Button>
-              <Button variant="outline" className="px-8 py-3">
-                View More Projects
-              </Button>
+              <a href="https://www.emcobe.net/contact" target="_blank" rel="noopener noreferrer">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+                  Start Your Project
+                </Button>
+              </a>
+              <a href="#">
+                <Button variant="outline" className="px-8 py-3">
+                  View More Projects
+                </Button>
+              </a>
             </div>
           </motion.div>
         </div>

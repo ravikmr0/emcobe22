@@ -92,16 +92,6 @@ const HeroSection = ({
             </CarouselItem>
           ))}
         </CarouselContent>
-
-        {/* Enhanced Navigation Arrows */}
-        <CarouselPrevious
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-30 h-12 w-12 border-2 border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-all duration-300 rounded-full"
-          onClick={() => setIsAutoPlaying(false)}
-        />
-        <CarouselNext
-          className="absolute right-6 top-1/2 -translate-y-1/2 z-30 h-12 w-12 border-2 border-white/30 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-all duration-300 rounded-full"
-          onClick={() => setIsAutoPlaying(false)}
-        />
       </Carousel>
 
       {/* Slide Indicators */}

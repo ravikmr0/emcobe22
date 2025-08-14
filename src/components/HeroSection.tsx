@@ -10,7 +10,13 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "./ui/carousel";
-import { ChevronDown, Play, Pause } from "lucide-react";
+import {
+  ChevronDown,
+  Play,
+  Pause,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 interface HeroSectionProps {
   title?: string;
@@ -60,6 +66,20 @@ const HeroSection = ({
 
   const toggleAutoPlay = () => {
     setIsAutoPlaying(!isAutoPlaying);
+  };
+
+  const handlePrevious = () => {
+    if (api) {
+      api.scrollPrev();
+      setIsAutoPlaying(false);
+    }
+  };
+
+  const handleNext = () => {
+    if (api) {
+      api.scrollNext();
+      setIsAutoPlaying(false);
+    }
   };
 
   return (
@@ -118,6 +138,23 @@ const HeroSection = ({
           />
         ))}
       </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={handlePrevious}
+        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300 hover:scale-110"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft size={24} />
+      </button>
+
+      <button
+        onClick={handleNext}
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all duration-300 hover:scale-110"
+        aria-label="Next slide"
+      >
+        <ChevronRight size={24} />
+      </button>
 
       {/* Auto-play Control */}
       <button

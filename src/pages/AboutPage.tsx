@@ -101,7 +101,7 @@ const AboutPage = () => {
                 Today, we serve clients across multiple continents, delivering
                 comprehensive steel detailing solutions that combine traditional
                 engineering excellence with cutting-edge technology and
-                innovative methodologies.
+                innovative methodologies. 
               </p>
             </motion.div>
             <motion.div

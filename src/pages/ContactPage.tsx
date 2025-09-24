@@ -88,8 +88,8 @@ const ContactPage = () => {
     {
       icon: <MapPin size={20} />,
       title: "Office Location",
-      details: "EMCOBE, 84, Chandpur Kalan, Dist-Mathura U.P, India",
-      action: "#",
+      details: "EMCOBE, 84, Chandpur Kalan, Dist-Mathura, 281201 U.P., India",
+      action: "",
     },
     {
       icon: <Clock size={20} />,

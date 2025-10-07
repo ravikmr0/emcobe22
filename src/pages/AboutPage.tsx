@@ -11,12 +11,7 @@ const AboutPage = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const stats = [
-    { icon: <Users size={32} />, number: "50+", label: "Expert Engineers" },
-    { icon: <Award size={32} />, number: "100+", label: "Projects Completed" },
-    { icon: <Target size={32} />, number: "5+", label: "Years Experience" },
-    { icon: <Globe size={32} />, number: "15+", label: "Countries Served" },
-  ];
+ 
 
   const values = [
     {

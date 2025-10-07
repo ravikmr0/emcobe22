@@ -117,30 +117,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Statistics */}
-      <section className="py-16 bg-blue-600">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeIn}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8"
-          >
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center text-white">
-                <div className="flex justify-center mb-4 text-blue-200">
-                  {stat.icon}
-                </div>
-                <div className="text-3xl font-bold mb-2">{stat.number}</div>
-                <div className="text-blue-200">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* Our Values */}
       <section className="py-16">
         <div className="container mx-auto px-4">

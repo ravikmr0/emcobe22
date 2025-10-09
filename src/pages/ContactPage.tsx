@@ -431,7 +431,7 @@ const ContactPage = () => {
                           className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
                           size={16}
                         />
-                        7+ Years of Industry Experience
+                        Years of Industry Experience
                       </li>
                       <li className="flex items-start">
                         <CheckCircle

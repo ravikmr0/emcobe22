@@ -453,7 +453,7 @@ const ProjectPhotosGallery = () => {
         id: 4,
         title: "DICK'S Sporting Goods – Glendale, AZ",
         category: "VCC Construction",
-        location: "📍Glendale, Arizona 85308",
+        location: "📍Glendale, Arizona 85305",
         images: [
          "/images/building/dicks.jpg",
           "/images/3d-images/dicks.png",

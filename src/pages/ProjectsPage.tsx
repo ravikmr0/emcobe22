@@ -198,7 +198,7 @@ const ProjectsPage = () => {
       id: 11,
       title: "DICK'S Sporting Goods – Glendale, AZ",
       category: "VCC Construction",
-      location: "Glendale, Arizona 85308",
+      location: "Glendale, Arizona 85305",
       // year: "2021",
       description:
         "We provided full-service steel detailing for the DICK'S Sporting Goods retail location in Glendale, AZ—supporting the creation of a modern, large-format sporting goods store built for performance and durability.",

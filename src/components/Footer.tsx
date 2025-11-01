@@ -157,7 +157,7 @@ const Footer = ({
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">
               <p className="text-gray-400 text-sm">
-                © {currentYear} {companyName} {tagline}. Developed by (www.techvexor.com) All rights reserved.
+                © {currentYear} {companyName} {tagline}. All rights reserved.
               </p>
             </div>
             <div className="flex flex-wrap justify-center md:justify-end space-x-6">

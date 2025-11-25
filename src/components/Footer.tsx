@@ -46,6 +46,7 @@ const Footer = ({
     // { name: "Twitter", href: "#", icon: Twitter },
     { name: "LinkedIn", href: "https://www.linkedin.com/company/emcobe-engineering-and-consultants/", icon: Linkedin },
     { name: "Instagram", href: "https://www.instagram.com/emcobe_engineering", icon: Instagram },
+
   ];
 
   return (
@@ -66,7 +67,7 @@ const Footer = ({
             </div>
 
             {/* Social Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 items-center">
               {socialLinks.map((social) => {
                 const IconComponent = social.icon;
                 return (
@@ -80,6 +81,19 @@ const Footer = ({
                   </a>
                 );
               })}
+
+              
+            </div>
+
+            {/* AISC Associate Member logo (placed after social icons) */}
+            <div className="mt-4">
+              <a href="#" target="_blank" rel="noreferrer" className="flex items-center space-x-2">
+                <picture>
+                  <source srcSet="/aisc.jpg" type="image/jpeg" />
+                  <img src="/aisc.jpg" alt="AISC Associate Member" className="h-6 w-auto object-contain" />
+                </picture>
+                <span className="text-gray-300 text-sm">AISC Associate Member</span>
+              </a>
             </div>
           </div>
 
@@ -160,7 +174,7 @@ const Footer = ({
                 © {currentYear} {companyName} {tagline}. All rights reserved.
               </p>
             </div>
-            <div className="flex flex-wrap justify-center md:justify-end space-x-6">
+            <div className="flex flex-wrap justify-center md:justify-end items-center space-x-6">
               <a
                 href="#"
                 className="text-gray-400 hover:text-white transition-colors duration-200 text-sm"
@@ -179,6 +193,7 @@ const Footer = ({
               >
                 Cookie Policy
               </a>
+              
             </div>
           </div>
         </div>

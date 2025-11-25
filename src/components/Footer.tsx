@@ -37,15 +37,15 @@ const Footer = ({
 
   const contactInfo = {
     email: "mail@emcobe.net",
-    phone: "+91 7500186008",
-    address: "EMCOBE, 84, Chandpur Kalan, Dist-Mathura, 281201 U.P., India",
+    phone: "+1(602) 723-2613",
+    address: "4539 N 22ND ST # 5630 PHOENIX, AZ 85016",
   };
 
   const socialLinks = [
-    { name: "Facebook", href: "#", icon: Facebook },
-    { name: "Twitter", href: "#", icon: Twitter },
-    { name: "LinkedIn", href: "#", icon: Linkedin },
-    { name: "Instagram", href: "#", icon: Instagram },
+    // { name: "Facebook", href: "#", icon: Facebook },
+    // { name: "Twitter", href: "#", icon: Twitter },
+    { name: "LinkedIn", href: "https://www.linkedin.com/company/emcobe-engineering-and-consultants/", icon: Linkedin },
+    { name: "Instagram", href: "https://www.instagram.com/emcobe_engineering", icon: Instagram },
   ];
 
   return (

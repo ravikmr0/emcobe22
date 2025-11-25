@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Menu, X, Search, Phone } from "lucide-react";
 import { Input } from "./ui/input";
@@ -43,7 +44,11 @@ const Header = ({
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 lg:h-16">
           {/* Logo and Company Name */}
-          <div className="flex items-center space-x-3 flex-shrink-0">
+          <Link
+            to="/"
+            aria-label="Home"
+            className="flex items-center space-x-3 flex-shrink-0 cursor-pointer"
+          >
             <img
               src={logo}
               alt={`${companyName} Logo`}
@@ -52,7 +57,7 @@ const Header = ({
             <span className="text-lg sm:text-xl font-bold text-gray-800">
               {companyName}
             </span>
-          </div>
+          </Link>
 
           {/* Search Bar for Tablet and Mobile */}
           <div className="flex-1 max-w-md mx-4 lg:hidden">

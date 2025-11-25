@@ -26,8 +26,8 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({
-  title = "LLC Behind EMCOBE Engineering and Consultants LLC",
-  tagline = "LLC behind, Perfection we provide.",
+  title = "EMCOBE Engineering and Consultants LLC",
+  tagline = "Accuracy we prefer, Perfection we provide.",
   backgroundImages = [
     "https://images.unsplash.com/photo-1706552128399-43e2baff0fe5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=90",

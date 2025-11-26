@@ -1,101 +1,100 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
+import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
-export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse
-) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  res.setHeader('Content-Type', 'application/json');
   // Only allow POST requests
   if (req.method !== 'POST') {
-    res.setHeader('Content-Type', 'application/json');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // If request body is raw string, parse it
+    // Parse body (in case some runtime delivers raw string)
     let body: any = req.body;
     if (typeof body === 'string' && body.trim().length) {
       try {
         body = JSON.parse(body);
       } catch (err) {
-        console.warn('Failed to parse request body as JSON, falling back to raw string');
-        body = { message: body };
+        // Accept raw string as the message
+        body = { message: String(body) };
       }
     }
+
     const { firstName, lastName, email, phone, company, message } = body || {};
 
     // Basic validation
     if (!firstName || !lastName || !email || !message) {
-      res.setHeader('Content-Type', 'application/json');
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
     // Simple email format validation
     const emailPattern = /^\S+@\S+\.\S+$/;
     if (!emailPattern.test(email)) {
-      res.setHeader('Content-Type', 'application/json');
       return res.status(400).json({ error: 'Invalid email address' });
     }
 
-    // Validate required fields
-    if (!firstName || !lastName || !email || !message) {
-      return res.status(400).json({ error: 'Missing required fields' });
+    // Get env vars; support multiple naming conventions
+    const MAIL = process.env.Mail || process.env.MAIL;
+    const MAIL_APP_PASSWORD = process.env.Mail_App_Password || process.env.MAIL_APP_PASSWORD;
+    const OWNER_EMAIL = MAIL || (process.env.OWNER_EMAIL || 'info@emcobe.net');
+
+    let transporter: any = null;
+    let usedTestAccount = false;
+
+    // If MAIL is set but password isn't, don't silently fallback to ethereal in production
+    if (MAIL && !MAIL_APP_PASSWORD) {
+      return res.status(500).json({ error: 'Email password not configured (Mail set, but Mail_App_Password/MAIL_APP_PASSWORD missing). Please set the app password in your environment.' });
     }
 
-    // Get environment variables
-    const MAIL = process.env.Mail;
-    const MAIL_APP_PASSWORD = process.env.Mail_App_Password;
-
-    if (!MAIL || !MAIL_APP_PASSWORD) {
-      console.error('Missing email configuration');
-      res.setHeader('Content-Type', 'application/json');
-      return res.status(500).json({ error: 'Email service not configured' });
+    if (MAIL && MAIL_APP_PASSWORD) {
+      // Use Gmail / real SMTP
+      transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: MAIL,
+          pass: MAIL_APP_PASSWORD,
+        },
+      } as SMTPTransport.Options);
+    } else {
+      // Fallback: use Ethereal for development (won't deliver to actual recipients)
+      const testAccount = await nodemailer.createTestAccount();
+      transporter = nodemailer.createTransport({
+        host: testAccount.smtp.host,
+        port: testAccount.smtp.port,
+        secure: testAccount.smtp.secure,
+        auth: {
+          user: testAccount.user,
+          pass: testAccount.pass,
+        },
+      } as SMTPTransport.Options);
+      usedTestAccount = true;
     }
 
-    // Create transporter
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: MAIL,
-        pass: MAIL_APP_PASSWORD,
-      },
-    });
+    // Compose email
+    const fromAddress = MAIL ? `${MAIL}` : `${firstName} ${lastName} <no-reply@emcobe.net>`;
+    const toAddress = OWNER_EMAIL;
+    const replyToAddress = email;
 
-    // Email content
     const mailOptions = {
-      from: MAIL,
-      to: MAIL,
-      replyTo: email,
+      from: fromAddress,
+      to: toAddress,
+      replyTo: replyToAddress,
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px;">
-            New Contact Form Submission
-          </h2>
-          
+          <h2 style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 10px;">New Contact Form Submission</h2>
           <div style="margin: 20px 0;">
             <h3 style="color: #374151; margin-bottom: 15px;">Contact Information:</h3>
-            
-            <p style="margin: 8px 0;">
-              <strong>Name:</strong> ${firstName} ${lastName}
-            </p>
-            
-            <p style="margin: 8px 0;">
-              <strong>Email:</strong> <a href="mailto:${email}">${email}</a>
-            </p>
-            
+            <p style="margin: 8px 0;"><strong>Name:</strong> ${firstName} ${lastName}</p>
+            <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
             ${phone ? `<p style="margin: 8px 0;"><strong>Phone:</strong> ${phone}</p>` : ''}
-            
             ${company ? `<p style="margin: 8px 0;"><strong>Company:</strong> ${company}</p>` : ''}
           </div>
-          
           <div style="margin: 20px 0;">
             <h3 style="color: #374151; margin-bottom: 15px;">Message:</h3>
-            <div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; white-space: pre-wrap;">
-              ${message}
-            </div>
+            <div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${message}</div>
           </div>
-          
           <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 12px;">
             <p>This email was sent from the EMCOBE contact form.</p>
             <p>Submitted on: ${new Date().toLocaleString()}</p>
@@ -104,21 +103,19 @@ export default async function handler(
       `,
     };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+    // Send the email
+    const info = await transporter.sendMail(mailOptions);
 
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Email sent successfully' 
-    });
+    const result: any = { success: true, message: 'Email sent successfully', messageId: info.messageId || null };
+    if (usedTestAccount) {
+      const previewUrl = nodemailer.getTestMessageUrl(info);
+      if (previewUrl) result.previewUrl = previewUrl;
+    }
 
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.setHeader('Content-Type', 'application/json');
-    return res.status(500).json({ 
-      error: 'Failed to send email',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    });
+    return res.status(200).json(result);
+  } catch (err: any) {
+    console.error('API /api/contact error:', err);
+    const details = err instanceof Error ? err.message : String(err);
+    return res.status(500).json({ error: 'Failed to send email', details });
   }
 }

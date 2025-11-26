@@ -24,6 +24,7 @@ const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<ContactFormData>>({});
   const [submitError, setSubmitError] = useState("");
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -117,10 +118,14 @@ const ContactSection = () => {
         }
 
         if (!response.ok) {
-          throw new Error(data?.error || `Failed to send message: ${response.status} ${response.statusText}`);
+          throw new Error(data?.error || data?.details || `Failed to send message: ${response.status} ${response.statusText}`);
         }
 
         setIsSubmitted(true);
+        if (data?.previewUrl) {
+          setPreviewUrl(data.previewUrl);
+          console.info('Ethereal preview URL:', data.previewUrl);
+        }
         setFormData({
           name: "",
           email: "",
@@ -131,6 +136,7 @@ const ContactSection = () => {
         // Reset submission status after 5 seconds
         setTimeout(() => {
           setIsSubmitted(false);
+          setPreviewUrl(null);
         }, 5000);
       } catch (err) {
         setSubmitError(err instanceof Error ? err.message : 'Failed to send message. Please try again.');
@@ -169,6 +175,11 @@ const ContactSection = () => {
                       you soon.
                     </p>
                   </div>
+                  {previewUrl && (
+                    <div className="text-sm text-blue-600 mb-4">
+                      <a href={previewUrl} target="_blank" rel="noreferrer">View email preview</a>
+                    </div>
+                  )}
                   <Button
                     onClick={() => setIsSubmitted(false)}
                     className="mt-4"

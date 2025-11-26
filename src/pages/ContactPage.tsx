@@ -35,6 +35,7 @@ const ContactPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [error, setError] = useState("");
 
   const handleInputChange = (field: string, value: string) => {
@@ -74,7 +75,13 @@ const ContactPage = () => {
       }
 
       if (!response.ok) {
-        throw new Error(data?.error || `Failed to send message: ${response.status} ${response.statusText}`);
+        throw new Error(data?.error || data?.details || `Failed to send message: ${response.status} ${response.statusText}`);
+      }
+
+      // If the server returns a preview URL (ethereal), show it in the UI for debugging
+      if (data?.previewUrl) {
+        setPreviewUrl(data.previewUrl);
+        console.info('Ethereal preview URL:', data.previewUrl);
       }
 
       setIsSubmitted(true);
@@ -82,6 +89,7 @@ const ContactPage = () => {
       // Reset form after 3 seconds
       setTimeout(() => {
         setIsSubmitted(false);
+        setPreviewUrl(null);
         setFormData({
           firstName: "",
           lastName: "",
@@ -206,6 +214,11 @@ const ContactPage = () => {
                           Your message has been sent successfully. We'll contact
                           you soon.
                         </p>
+                        {previewUrl && (
+                          <p className="text-sm text-blue-600 mt-2">
+                            <a href={previewUrl} target="_blank" rel="noreferrer">View email preview</a>
+                          </p>
+                        )}
                       </motion.div>
                     ) : (
                       <form onSubmit={handleSubmit} className="space-y-6">

@@ -39,16 +39,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const MAIL_APP_PASSWORD = process.env.Mail_App_Password || process.env.MAIL_APP_PASSWORD;
     const OWNER_EMAIL = MAIL || (process.env.OWNER_EMAIL || 'info@emcobe.net');
 
+    // Log for debugging
+    console.log('Contact API called. Environment check:', {
+      hasMAIL: !!MAIL,
+      hasMAIL_APP_PASSWORD: !!MAIL_APP_PASSWORD,
+      OWNER_EMAIL,
+      fromEmail: email,
+    });
+
     let transporter: any = null;
     let usedTestAccount = false;
 
     // If MAIL is set but password isn't, don't silently fallback to ethereal in production
     if (MAIL && !MAIL_APP_PASSWORD) {
-      return res.status(500).json({ error: 'Email password not configured (Mail set, but Mail_App_Password/MAIL_APP_PASSWORD missing). Please set the app password in your environment.' });
+      const errMsg = 'Email password not configured. Mail is set but Mail_App_Password/MAIL_APP_PASSWORD is missing. Set both environment variables on your hosting provider.';
+      console.error(errMsg);
+      return res.status(500).json({ error: 'Email configuration incomplete', details: errMsg });
     }
 
     if (MAIL && MAIL_APP_PASSWORD) {
       // Use Gmail / real SMTP
+      console.log(`Creating Gmail transporter for ${MAIL}`);
       transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -58,6 +69,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       } as SMTPTransport.Options);
     } else {
       // Fallback: use Ethereal for development (won't deliver to actual recipients)
+      console.warn('No MAIL or MAIL_APP_PASSWORD set. Using Ethereal test account (development mode). Emails will not be delivered to real recipients.');
       const testAccount = await nodemailer.createTestAccount();
       transporter = nodemailer.createTransport({
         host: testAccount.smtp.host,
@@ -104,7 +116,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     };
 
     // Send the email
+    console.log(`Sending email from ${mailOptions.from} to ${mailOptions.to}...`);
     const info = await transporter.sendMail(mailOptions);
+    console.log(`Email sent successfully. MessageID: ${info.messageId}`);
 
     const result: any = { success: true, message: 'Email sent successfully', messageId: info.messageId || null };
     if (usedTestAccount) {

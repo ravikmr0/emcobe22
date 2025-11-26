@@ -23,6 +23,7 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<ContactFormData>>({});
+  const [submitError, setSubmitError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -67,15 +68,38 @@ const ContactSection = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
       setIsSubmitting(true);
+      setSubmitError("");
 
-      // Simulate form submission
-      setTimeout(() => {
-        setIsSubmitting(false);
+      try {
+        // Split name into firstName and lastName
+        const nameParts = formData.name.trim().split(' ');
+        const firstName = nameParts[0] || '';
+        const lastName = nameParts.slice(1).join(' ') || '';
+
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email: formData.email,
+            message: `Subject: ${formData.subject}\n\n${formData.message}`,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to send message');
+        }
+
         setIsSubmitted(true);
         setFormData({
           name: "",
@@ -88,7 +112,11 @@ const ContactSection = () => {
         setTimeout(() => {
           setIsSubmitted(false);
         }, 5000);
-      }, 1500);
+      } catch (err) {
+        setSubmitError(err instanceof Error ? err.message : 'Failed to send message. Please try again.');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -107,6 +135,11 @@ const ContactSection = () => {
           {/* Contact Form */}
           <Card className="shadow-lg">
             <CardContent className="p-6">
+              {submitError && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-600 text-sm">{submitError}</p>
+                </div>
+              )}
               {isSubmitted ? (
                 <div className="text-center py-8">
                   <div className="bg-green-100 text-green-700 p-4 rounded-md mb-4">

@@ -10,24 +10,27 @@ import SamplesPage from "./pages/SamplesPage";
 import BlogPage from "./pages/BlogPage";
 import CareersPage from "./pages/CareersPage";
 import routes from "tempo-routes";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        {/* <Route path="/quote" element={<RequestForQuotePage />} /> */}
-        <Route path="/samples" element={<SamplesPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/careers" element={<CareersPage />} />
-        {/* {import.meta.env.VITE_TEMPO && <Route path="/tempobook/*" />} */}
-      </Routes>
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          {/* <Route path="/quote" element={<RequestForQuotePage />} /> */}
+          <Route path="/samples" element={<SamplesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          {/* {import.meta.env.VITE_TEMPO && <Route path="/tempobook/*" />} */}
+        </Routes>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 

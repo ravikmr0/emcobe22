@@ -55,10 +55,26 @@ const ContactPage = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      // Robust JSON handling like in ContactSection
+      let data: any = null;
+      const contentType = response.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        try {
+          data = await response.json();
+        } catch (parseError) {
+          data = { error: 'Failed to parse JSON response' };
+        }
+      } else {
+        const text = await response.text();
+        try {
+          data = text ? JSON.parse(text) : { error: text || 'Unexpected response from server' };
+        } catch {
+          data = { error: text || 'Unexpected response from server' };
+        }
+      }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send message');
+        throw new Error(data?.error || `Failed to send message: ${response.status} ${response.statusText}`);
       }
 
       setIsSubmitted(true);

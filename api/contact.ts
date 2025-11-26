@@ -7,11 +7,35 @@ export default async function handler(
 ) {
   // Only allow POST requests
   if (req.method !== 'POST') {
+    res.setHeader('Content-Type', 'application/json');
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    const { firstName, lastName, email, phone, company, message } = req.body;
+    // If request body is raw string, parse it
+    let body: any = req.body;
+    if (typeof body === 'string' && body.trim().length) {
+      try {
+        body = JSON.parse(body);
+      } catch (err) {
+        console.warn('Failed to parse request body as JSON, falling back to raw string');
+        body = { message: body };
+      }
+    }
+    const { firstName, lastName, email, phone, company, message } = body || {};
+
+    // Basic validation
+    if (!firstName || !lastName || !email || !message) {
+      res.setHeader('Content-Type', 'application/json');
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    // Simple email format validation
+    const emailPattern = /^\S+@\S+\.\S+$/;
+    if (!emailPattern.test(email)) {
+      res.setHeader('Content-Type', 'application/json');
+      return res.status(400).json({ error: 'Invalid email address' });
+    }
 
     // Validate required fields
     if (!firstName || !lastName || !email || !message) {
@@ -24,6 +48,7 @@ export default async function handler(
 
     if (!MAIL || !MAIL_APP_PASSWORD) {
       console.error('Missing email configuration');
+      res.setHeader('Content-Type', 'application/json');
       return res.status(500).json({ error: 'Email service not configured' });
     }
 
@@ -82,6 +107,7 @@ export default async function handler(
     // Send email
     await transporter.sendMail(mailOptions);
 
+    res.setHeader('Content-Type', 'application/json');
     return res.status(200).json({ 
       success: true, 
       message: 'Email sent successfully' 
@@ -89,6 +115,7 @@ export default async function handler(
 
   } catch (error) {
     console.error('Error sending email:', error);
+    res.setHeader('Content-Type', 'application/json');
     return res.status(500).json({ 
       error: 'Failed to send email',
       details: error instanceof Error ? error.message : 'Unknown error'

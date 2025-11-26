@@ -94,10 +94,30 @@ const ContactSection = () => {
           }),
         });
 
-        const data = await response.json();
+        // Try to parse JSON safely. Some deploys (or rewrites) might return HTML or empty responses
+        // which causes response.json() to throw "Unexpected end of JSON input".
+        let data: any = null;
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          try {
+            data = await response.json();
+          } catch (parseError) {
+            // Fallback to empty object
+            data = { error: 'Failed to parse JSON response' };
+          }
+        } else {
+          // If not JSON, try to get text error message
+          const text = await response.text();
+          // Try parsing it just in case it contains JSON
+          try {
+            data = text ? JSON.parse(text) : { error: text || 'Unexpected response from server' };
+          } catch {
+            data = { error: text || 'Unexpected response from server' };
+          }
+        }
 
         if (!response.ok) {
-          throw new Error(data.error || 'Failed to send message');
+          throw new Error(data?.error || `Failed to send message: ${response.status} ${response.statusText}`);
         }
 
         setIsSubmitted(true);

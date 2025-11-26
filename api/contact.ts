@@ -1,4 +1,18 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+// Lightweight request/response types compatible with Vercel/Express-like serverless handlers
+type VercelRequest = {
+  method?: string | undefined;
+  body?: any;
+  headers?: Record<string, string | undefined>;
+  query?: any;
+  cookies?: Record<string, string | undefined>;
+};
+
+type VercelResponse = {
+  setHeader(name: string, value: string): void;
+  status(code: number): VercelResponse;
+  json(body: any): VercelResponse;
+  end?(chunk?: any, encoding?: string): void;
+};
 import nodemailer from 'nodemailer';
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
@@ -37,7 +51,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Get env vars; support multiple naming conventions
     const MAIL = process.env.Mail || process.env.MAIL;
     const MAIL_APP_PASSWORD = process.env.Mail_App_Password || process.env.MAIL_APP_PASSWORD;
-    const OWNER_EMAIL = MAIL || (process.env.OWNER_EMAIL || 'info@emcobe.net');
+    const OWNER_EMAIL = MAIL || (process.env.OWNER_EMAIL || 'mail@emcobe.net');
 
     // Log for debugging
     console.log('Contact API called. Environment check:', {

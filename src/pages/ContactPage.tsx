@@ -128,9 +128,21 @@ const ContactPage = () => {
       action: "tel:+917500186008",
     },
     {
+      icon: <Phone size={20} />,
+      title: "Phone Number",
+      details: "+1(602) 723-2613",
+      action: "+1(602)7232613",
+    },
+    {
       icon: <MapPin size={20} />,
       title: "Office Location",
       details: "EMCOBE, 84, Chandpur Kalan, Dist-Mathura, 281201 U.P., India",
+      action: "",
+    },
+    {
+      icon: <MapPin size={20} />,
+      title: "Office Location",
+      details: "4539 N 22ND ST # 5630 PHOENIX, AZ 85016",
       action: "",
     },
     {

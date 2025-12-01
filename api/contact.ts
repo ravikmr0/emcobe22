@@ -1,4 +1,4 @@
-// api/contact.ts (replace your existing handler with this)
+// api/contact.ts - Microsoft Outlook SMTP Configuration
 import nodemailer from 'nodemailer';
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
@@ -58,16 +58,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Invalid email address' });
     }
 
-    // Environment variables (support multiple naming conventions)
-    const MAIL = process.env.Mail || process.env.MAIL;
-    const MAIL_APP_PASSWORD = process.env.Mail_App_Password || process.env.MAIL_APP_PASSWORD;
-    const OWNER_EMAIL = process.env.OWNER_EMAIL || MAIL || 'mail@emcobe.net';
+    // Microsoft Outlook SMTP Environment Variables
+    const SMTP_HOST = process.env.SMTP_HOST || 'smtp.office365.com';
+    const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587', 10);
+    const SMTP_SECURE = process.env.SMTP_SECURE === 'true'; // false for port 587 with STARTTLS
+    const SMTP_USER = process.env.SMTP_USER;
+    const SMTP_PASS = process.env.SMTP_PASS;
+    const MAIL_TO = process.env.MAIL_TO || SMTP_USER || 'mail@emcobe.net';
 
     console.log('Contact API called. Env check:', {
       NODE_ENV: process.env.NODE_ENV,
-      hasMAIL: !!MAIL,
-      hasMAIL_APP_PASSWORD: !!MAIL_APP_PASSWORD,
-      OWNER_EMAIL,
+      SMTP_HOST,
+      SMTP_PORT,
+      SMTP_SECURE,
+      hasSMTP_USER: !!SMTP_USER,
+      hasSMTP_PASS: !!SMTP_PASS,
+      MAIL_TO,
       fromEmail: email,
     });
 
@@ -77,25 +83,32 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let transporter: nodemailer.Transporter | null = null;
     let usedTestAccount = false;
 
-    if (MAIL && MAIL_APP_PASSWORD) {
-      // Use configured SMTP (Gmail example)
+    if (SMTP_USER && SMTP_PASS) {
+      // Use Microsoft Outlook SMTP with TLS
       transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: SMTP_HOST,
+        port: SMTP_PORT,
+        secure: SMTP_SECURE, // false for 587, true for 465
         auth: {
-          user: MAIL,
-          pass: MAIL_APP_PASSWORD,
+          user: SMTP_USER,
+          pass: SMTP_PASS,
+        },
+        tls: {
+          // Required for Office 365
+          ciphers: 'SSLv3',
+          rejectUnauthorized: false,
         },
       } as SMTPTransport.Options);
     } else {
       if (isProduction) {
         // Production without proper credentials -> clear error
         const errMsg =
-          'Email configuration missing. Set MAIL (sender) and MAIL_APP_PASSWORD (app password) in your environment variables for production.';
+          'Email configuration missing. Set SMTP_USER and SMTP_PASS in your Vercel environment variables.';
         console.error(errMsg);
         return res.status(500).json({ error: 'Email configuration incomplete', details: errMsg });
       } else {
         // Development: create and use Ethereal test account
-        console.warn('No MAIL configured; using Ethereal test account (development only).');
+        console.warn('No SMTP credentials configured; using Ethereal test account (development only).');
         const testAccount = await nodemailer.createTestAccount();
         transporter = nodemailer.createTransport({
           host: testAccount.smtp.host,
@@ -156,8 +169,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       </div>
     `;
 
-    const fromAddress = MAIL ? `${MAIL}` : `${sFirstName} ${sLastName} <no-reply@emcobe.net>`;
-    const toAddress = OWNER_EMAIL;
+    // For Office 365, the from address MUST match the authenticated user
+    const fromAddress = SMTP_USER || 'mail@emcobe.net';
+    const toAddress = MAIL_TO;
     const replyToAddress = sEmail || undefined;
 
     const mailOptions = {

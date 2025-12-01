@@ -9,6 +9,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 interface ContactFormData {
   name: string;
   email: string;
+  phone: string;
   subject: string;
   message: string;
 }
@@ -17,6 +18,7 @@ const ContactSection = () => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
@@ -91,6 +93,7 @@ const ContactSection = () => {
             firstName,
             lastName,
             email: formData.email,
+            phone: formData.phone,
             message: `Subject: ${formData.subject}\n\n${formData.message}`,
           }),
         });
@@ -113,7 +116,12 @@ const ContactSection = () => {
           try {
             data = text ? JSON.parse(text) : { error: text || 'Unexpected response from server' };
           } catch {
-            data = { error: text || 'Unexpected response from server' };
+            // Check if we got an HTML response (likely 404 from dev server)
+            if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+              data = { error: 'Contact API not available. This feature only works when deployed to Vercel.' };
+            } else {
+              data = { error: text || 'Unexpected response from server' };
+            }
           }
         }
 
@@ -129,6 +137,7 @@ const ContactSection = () => {
         setFormData({
           name: "",
           email: "",
+          phone: "",
           subject: "",
           message: "",
         });
@@ -223,6 +232,18 @@ const ContactSection = () => {
                           {errors.email}
                         </p>
                       )}
+                    </div>
+
+                    <div>
+                      <Label htmlFor="phone">Phone (Optional)</Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="+1 (555) 123-4567"
+                      />
                     </div>
 
                     <div>

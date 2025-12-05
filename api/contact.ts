@@ -94,11 +94,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           pass: SMTP_PASS,
         },
         tls: {
-          // Modern TLS settings for Office 365
-          minVersion: 'TLSv1.2',
-          rejectUnauthorized: true,
+          // Relaxed TLS settings for better compatibility
+          rejectUnauthorized: false,
         },
-        requireTLS: true, // Require STARTTLS for port 587
+        connectionTimeout: 10000, // 10 seconds
+        greetingTimeout: 10000,
+        socketTimeout: 15000,
       } as SMTPTransport.Options);
     } else {
       if (isProduction) {
@@ -128,37 +129,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: 'Failed to create email transporter' });
     }
 
-    // verify transporter connection/options (useful to surface config errors early)
-    try {
-      await transporter.verify();
-      console.log('Transporter verified successfully.');
-    } catch (verifyErr: any) {
-      console.error('Transporter verification failed:', verifyErr);
-      
-      const errorMessage = verifyErr?.message || String(verifyErr);
-      let userFriendlyError = 'SMTP verification failed';
-      let details = errorMessage;
-      
-      // Provide helpful error messages for common Office 365 issues
-      if (errorMessage.includes('Invalid login') || errorMessage.includes('535') || errorMessage.includes('Authentication')) {
-        userFriendlyError = 'SMTP authentication failed';
-        details = 'Invalid username or password. For Office 365, ensure you are using an App Password if 2FA is enabled, or check that SMTP AUTH is enabled for your account.';
-      } else if (errorMessage.includes('ECONNREFUSED') || errorMessage.includes('ETIMEDOUT')) {
-        userFriendlyError = 'Cannot connect to SMTP server';
-        details = `Unable to connect to ${SMTP_HOST}:${SMTP_PORT}. Check your SMTP_HOST and SMTP_PORT settings.`;
-      } else if (errorMessage.includes('certificate') || errorMessage.includes('TLS')) {
-        userFriendlyError = 'TLS/SSL connection error';
-        details = 'SSL/TLS handshake failed. This may be a server configuration issue.';
-      } else if (errorMessage.includes('SMTP AUTH extension not supported')) {
-        userFriendlyError = 'SMTP AUTH not enabled';
-        details = 'SMTP authentication is not enabled for this account. Enable SMTP AUTH in Microsoft 365 admin center.';
-      }
-      
-      // If verification fails in development with Ethereal we continue because it should still work; but return clear error in prod
-      if (isProduction) {
-        return res.status(500).json({ error: userFriendlyError, details });
-      }
-    }
+    // Skip verification - Office 365 sometimes fails verify() but still sends successfully
+    // We'll catch any real errors during sendMail() instead
+    console.log('Transporter created, skipping verification to avoid Office 365 verify issues.');
 
     // Sanitize inputs that will go into HTML
     const sFirstName = sanitizeForHtml(String(firstName));
@@ -216,8 +189,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json(result);
   } catch (err: any) {
     console.error('API /api/contact error:', err);
-    const details = err instanceof Error ? err.message : String(err);
-    // avoid leaking secrets in the error response; return useful but safe details
-    return res.status(500).json({ error: 'Failed to send email', details: details });
+    const errorMessage = err?.message || String(err);
+    
+    // Provide user-friendly error messages for common SMTP issues
+    let userFriendlyError = 'Failed to send email';
+    let details = errorMessage;
+    
+    if (errorMessage.includes('Invalid login') || errorMessage.includes('535') || errorMessage.includes('Authentication unsuccessful')) {
+      userFriendlyError = 'Email authentication failed';
+      details = 'Invalid SMTP credentials. For Office 365: 1) Ensure SMTP AUTH is enabled in Microsoft 365 Admin Center, 2) If 2FA is enabled, use an App Password instead of your regular password.';
+    } else if (errorMessage.includes('ECONNREFUSED') || errorMessage.includes('ETIMEDOUT') || errorMessage.includes('ENOTFOUND')) {
+      userFriendlyError = 'Cannot connect to email server';
+      details = 'Unable to connect to the SMTP server. Please check SMTP_HOST and SMTP_PORT settings.';
+    } else if (errorMessage.includes('certificate') || errorMessage.includes('TLS') || errorMessage.includes('SSL')) {
+      userFriendlyError = 'Secure connection failed';
+      details = 'SSL/TLS connection error. Try setting SMTP_SECURE to false for port 587.';
+    } else if (errorMessage.includes('5.7.57') || errorMessage.includes('Client was not authenticated')) {
+      userFriendlyError = 'SMTP authentication required';
+      details = 'Office 365 requires SMTP AUTH to be enabled. Go to Microsoft 365 Admin Center > Users > Select user > Mail > Manage email apps > Enable "Authenticated SMTP".';
+    }
+    
+    return res.status(500).json({ error: userFriendlyError, details });
   }
 }

@@ -94,10 +94,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           pass: SMTP_PASS,
         },
         tls: {
-          // Required for Office 365
-          ciphers: 'SSLv3',
-          rejectUnauthorized: false,
+          // Modern TLS settings for Office 365
+          minVersion: 'TLSv1.2',
+          rejectUnauthorized: true,
         },
+        requireTLS: true, // Require STARTTLS for port 587
       } as SMTPTransport.Options);
     } else {
       if (isProduction) {
@@ -131,11 +132,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     try {
       await transporter.verify();
       console.log('Transporter verified successfully.');
-    } catch (verifyErr) {
+    } catch (verifyErr: any) {
       console.error('Transporter verification failed:', verifyErr);
+      
+      const errorMessage = verifyErr?.message || String(verifyErr);
+      let userFriendlyError = 'SMTP verification failed';
+      let details = errorMessage;
+      
+      // Provide helpful error messages for common Office 365 issues
+      if (errorMessage.includes('Invalid login') || errorMessage.includes('535') || errorMessage.includes('Authentication')) {
+        userFriendlyError = 'SMTP authentication failed';
+        details = 'Invalid username or password. For Office 365, ensure you are using an App Password if 2FA is enabled, or check that SMTP AUTH is enabled for your account.';
+      } else if (errorMessage.includes('ECONNREFUSED') || errorMessage.includes('ETIMEDOUT')) {
+        userFriendlyError = 'Cannot connect to SMTP server';
+        details = `Unable to connect to ${SMTP_HOST}:${SMTP_PORT}. Check your SMTP_HOST and SMTP_PORT settings.`;
+      } else if (errorMessage.includes('certificate') || errorMessage.includes('TLS')) {
+        userFriendlyError = 'TLS/SSL connection error';
+        details = 'SSL/TLS handshake failed. This may be a server configuration issue.';
+      } else if (errorMessage.includes('SMTP AUTH extension not supported')) {
+        userFriendlyError = 'SMTP AUTH not enabled';
+        details = 'SMTP authentication is not enabled for this account. Enable SMTP AUTH in Microsoft 365 admin center.';
+      }
+      
       // If verification fails in development with Ethereal we continue because it should still work; but return clear error in prod
       if (isProduction) {
-        return res.status(500).json({ error: 'SMTP verification failed', details: String(verifyErr) });
+        return res.status(500).json({ error: userFriendlyError, details });
       }
     }
 

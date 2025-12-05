@@ -70,7 +70,7 @@ const ProjectCard = memo(
 
     const imageVariants = {
       hover: {
-        scale: 1.05,
+        scale: 1,
         transition: {
           duration: 0.4,
           ease: "easeOut",
@@ -93,8 +93,7 @@ const ProjectCard = memo(
           before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500
           after:absolute after:inset-[1px] after:rounded-lg 
           hover:after:bg-gradient-to-br hover:after:from-white/95 
-          ${index % 2 === 0 ? "hover:translate-x-2" : "hover:-translate-x-2"}
-          hover:scale-[1.02] transform-gpu
+          hover:scale-[1.02]
         `}
           style={{
             background: `
@@ -141,10 +140,10 @@ const ProjectCard = memo(
                   <motion.div
                     key={`${photo.id}-${currentImageIndex}`}
                     className="relative w-full h-full"
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.5 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                   >
                     <motion.img
                       src={currentImage}
@@ -154,7 +153,6 @@ const ProjectCard = memo(
                       decoding="async"
                       fetchPriority={index < 2 ? "high" : "low"}
                       variants={imageVariants}
-                      whileHover="hover"
                       onError={(e) => {
                         // If image fails to load, try to show a different image
                         console.warn(`Failed to load image: ${currentImage}`);

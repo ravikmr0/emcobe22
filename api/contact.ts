@@ -62,7 +62,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const SMTP_HOST = process.env.SMTP_HOST || 'smtp.office365.com';
     const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587', 10);
     const SMTP_SECURE = process.env.SMTP_SECURE === 'true'; // typically false for port 587 (STARTTLS)
-    const SMTP_USER = process.env.SMTP_USER; // the authenticated mailbox (required in production)
+    const SMTP_USER = process.env.SMTP_USER || process.env.MAIL_FROM; // the authenticated mailbox (required in production)
     const SMTP_PASS = process.env.SMTP_PASS; // app password or SMTP password
     const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER || 'mail@emcobe.net';
     const MAIL_TO = process.env.MAIL_TO || MAIL_FROM || SMTP_USER || 'mail@emcobe.net';

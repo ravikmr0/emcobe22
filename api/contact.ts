@@ -48,9 +48,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const { firstName, lastName, email, phone, company, message } = body || {};
 
-    // Basic validation
-    if (!firstName || !lastName || !email || !message) {
-      return res.status(400).json({ error: 'Missing required fields: firstName, lastName, email, message' });
+    // Basic validation - require firstName, email and message; lastName is optional
+    if (!firstName || !email || !message) {
+      return res.status(400).json({ error: 'Missing required fields: firstName, email, message' });
     }
 
     const emailPattern = /^\S+@\S+\.\S+$/;
@@ -58,13 +58,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Invalid email address' });
     }
 
-    // Microsoft Outlook SMTP Environment Variables
+    // Microsoft Outlook SMTP Environment Variables (set these in Vercel)
     const SMTP_HOST = process.env.SMTP_HOST || 'smtp.office365.com';
     const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587', 10);
-    const SMTP_SECURE = process.env.SMTP_SECURE === 'true'; // false for port 587 with STARTTLS
-    const SMTP_USER = process.env.SMTP_USER;
-    const SMTP_PASS = process.env.SMTP_PASS;
-    const MAIL_TO = process.env.MAIL_TO || SMTP_USER || 'mail@emcobe.net';
+    const SMTP_SECURE = process.env.SMTP_SECURE === 'true'; // typically false for port 587 (STARTTLS)
+    const SMTP_USER = process.env.SMTP_USER; // the authenticated mailbox (required in production)
+    const SMTP_PASS = process.env.SMTP_PASS; // app password or SMTP password
+    const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER || 'mail@emcobe.net';
+    const MAIL_TO = process.env.MAIL_TO || MAIL_FROM || SMTP_USER || 'mail@emcobe.net';
 
     console.log('Contact API called. Env check:', {
       NODE_ENV: process.env.NODE_ENV,
@@ -78,7 +79,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     // In production do not fallback to Ethereal — require real SMTP credentials
-    const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
 
     let transporter: nodemailer.Transporter | null = null;
     let usedTestAccount = false;
@@ -105,8 +106,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (isProduction) {
         // Production without proper credentials -> clear error
         const errMsg =
-          'Email configuration missing. Set SMTP_USER and SMTP_PASS in your Vercel environment variables.';
-        console.error(errMsg);
+          'Email configuration missing. Set SMTP_USER and SMTP_PASS (and optionally MAIL_FROM, MAIL_TO) in your Vercel environment variables.';
+        console.error(errMsg, { SMTP_USER: !!SMTP_USER, SMTP_PASS: !!SMTP_PASS });
         return res.status(500).json({ error: 'Email configuration incomplete', details: errMsg });
       } else {
         // Development: create and use Ethereal test account
@@ -135,7 +136,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Sanitize inputs that will go into HTML
     const sFirstName = sanitizeForHtml(String(firstName));
-    const sLastName = sanitizeForHtml(String(lastName));
+    const sLastName = sanitizeForHtml(lastName ? String(lastName) : '');
     const sEmail = sanitizeForHtml(String(email));
     const sPhone = sanitizeForHtml(phone ? String(phone) : '');
     const sCompany = sanitizeForHtml(company ? String(company) : '');
@@ -163,9 +164,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       </div>
     `;
 
-    // For Office 365, the from address MUST match the authenticated user
-    const fromAddress = SMTP_USER || 'mail@emcobe.net';
+    // For Office 365, the `from` address should ideally match the authenticated user
+    // Prefer MAIL_FROM (explicit env var). If it conflicts with SMTP_USER we'll use SMTP_USER to avoid rejection.
+    let fromAddress = MAIL_FROM || SMTP_USER || 'mail@emcobe.net';
     const toAddress = MAIL_TO;
+    if (SMTP_USER && fromAddress.toLowerCase() !== SMTP_USER.toLowerCase()) {
+      console.warn('MAIL_FROM differs from SMTP_USER; using SMTP_USER as from address to satisfy Office 365.', {
+        MAIL_FROM,
+        SMTP_USER,
+      });
+      fromAddress = SMTP_USER;
+    }
     const replyToAddress = sEmail || undefined;
 
     const mailOptions = {

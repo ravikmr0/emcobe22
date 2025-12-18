@@ -1,4 +1,4 @@
-// api/contact.ts - Microsoft Outlook SMTP Configuration
+// api/contact.ts - Gmail SMTP Configuration
 import nodemailer from 'nodemailer';
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 
@@ -58,14 +58,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Invalid email address' });
     }
 
-    // Microsoft Outlook SMTP Environment Variables (set these in Vercel)
-    const SMTP_HOST = process.env.SMTP_HOST || 'smtp.office365.com';
+    // Gmail SMTP Environment Variables (set these in Vercel)
+    const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
     const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587', 10);
     const SMTP_SECURE = process.env.SMTP_SECURE === 'true'; // typically false for port 587 (STARTTLS)
     const SMTP_USER = process.env.SMTP_USER || process.env.MAIL_FROM; // the authenticated mailbox (required in production)
     const SMTP_PASS = process.env.SMTP_PASS; // app password or SMTP password
-    const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER || 'mail@emcobe.net';
-    const MAIL_TO = process.env.MAIL_TO || MAIL_FROM || SMTP_USER || 'mail@emcobe.net';
+    const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER || 'emcobesteel@gmail.com';
+    const MAIL_TO = process.env.MAIL_TO || MAIL_FROM || SMTP_USER || 'emcobesteel@gmail.com';
 
     console.log('Contact API called. Env check:', {
       NODE_ENV: process.env.NODE_ENV,
@@ -85,7 +85,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let usedTestAccount = false;
 
     if (SMTP_USER && SMTP_PASS) {
-      // Use Microsoft Outlook SMTP with TLS
+      // Use Gmail SMTP with TLS
       transporter = nodemailer.createTransport({
         host: SMTP_HOST,
         port: SMTP_PORT,
@@ -130,9 +130,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: 'Failed to create email transporter' });
     }
 
-    // Skip verification - Office 365 sometimes fails verify() but still sends successfully
+    // Skip verification - Gmail sometimes fails verify() but still sends successfully
     // We'll catch any real errors during sendMail() instead
-    console.log('Transporter created, skipping verification to avoid Office 365 verify issues.');
+    console.log('Transporter created, skipping verification to avoid Gmail verify issues.');
 
     // Sanitize inputs that will go into HTML
     const sFirstName = sanitizeForHtml(String(firstName));
@@ -164,12 +164,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       </div>
     `;
 
-    // For Office 365, the `from` address should ideally match the authenticated user
+    // For Gmail, the `from` address should ideally match the authenticated user
     // Prefer MAIL_FROM (explicit env var). If it conflicts with SMTP_USER we'll use SMTP_USER to avoid rejection.
-    let fromAddress = MAIL_FROM || SMTP_USER || 'mail@emcobe.net';
+    let fromAddress = MAIL_FROM || SMTP_USER || 'emcobesteel@gmail.com';
     const toAddress = MAIL_TO;
     if (SMTP_USER && fromAddress.toLowerCase() !== SMTP_USER.toLowerCase()) {
-      console.warn('MAIL_FROM differs from SMTP_USER; using SMTP_USER as from address to satisfy Office 365.', {
+      console.warn('MAIL_FROM differs from SMTP_USER; using SMTP_USER as from address to satisfy Gmail.', {
         MAIL_FROM,
         SMTP_USER,
       });
@@ -204,18 +204,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let userFriendlyError = 'Failed to send email';
     let details = errorMessage;
     
-    if (errorMessage.includes('Invalid login') || errorMessage.includes('535') || errorMessage.includes('Authentication unsuccessful')) {
+    if (errorMessage.includes('Invalid login') || errorMessage.includes('535') || errorMessage.includes('Authentication unsuccessful') || errorMessage.includes('Username and Password not accepted')) {
       userFriendlyError = 'Email authentication failed';
-      details = 'Invalid SMTP credentials. For Office 365: 1) Ensure SMTP AUTH is enabled in Microsoft 365 Admin Center, 2) If 2FA is enabled, use an App Password instead of your regular password.';
+      details = 'Invalid SMTP credentials. For Gmail: 1) Enable 2-Step Verification on your Google account, 2) Create an App Password at https://myaccount.google.com/apppasswords, 3) Use the App Password (not your regular password) as SMTP_PASS.';
     } else if (errorMessage.includes('ECONNREFUSED') || errorMessage.includes('ETIMEDOUT') || errorMessage.includes('ENOTFOUND')) {
       userFriendlyError = 'Cannot connect to email server';
       details = 'Unable to connect to the SMTP server. Please check SMTP_HOST and SMTP_PORT settings.';
     } else if (errorMessage.includes('certificate') || errorMessage.includes('TLS') || errorMessage.includes('SSL')) {
       userFriendlyError = 'Secure connection failed';
       details = 'SSL/TLS connection error. Try setting SMTP_SECURE to false for port 587.';
-    } else if (errorMessage.includes('5.7.57') || errorMessage.includes('Client was not authenticated')) {
-      userFriendlyError = 'SMTP authentication required';
-      details = 'Office 365 requires SMTP AUTH to be enabled. Go to Microsoft 365 Admin Center > Users > Select user > Mail > Manage email apps > Enable "Authenticated SMTP".';
+    } else if (errorMessage.includes('Less secure app') || errorMessage.includes('BadCredentials')) {
+      userFriendlyError = 'Gmail security block';
+      details = 'Gmail requires an App Password. Go to https://myaccount.google.com/apppasswords to create one (requires 2-Step Verification enabled).';
     }
     
     return res.status(500).json({ error: userFriendlyError, details });

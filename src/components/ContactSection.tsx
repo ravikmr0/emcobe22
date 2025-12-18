@@ -102,31 +102,36 @@ const ContactSection = () => {
         // which causes response.json() to throw "Unexpected end of JSON input".
         let data: any = null;
         const contentType = response.headers.get('content-type') || '';
-        if (contentType.includes('application/json')) {
+        const responseText = await response.text();
+        
+        // Try to parse as JSON first
+        if (responseText && responseText.trim()) {
           try {
-            data = await response.json();
-          } catch (parseError) {
-            // Fallback to empty object
-            data = { error: 'Failed to parse JSON response' };
-          }
-        } else {
-          // If not JSON, try to get text error message
-          const text = await response.text();
-          // Try parsing it just in case it contains JSON
-          try {
-            data = text ? JSON.parse(text) : { error: text || 'Unexpected response from server' };
+            data = JSON.parse(responseText);
           } catch {
-            // Check if we got an HTML response (likely 404 from dev server)
-            if (text.includes('<!DOCTYPE') || text.includes('<html')) {
-              data = { error: 'Contact API not available. This feature only works when deployed to Vercel.' };
+            // Check if we got an HTML response (likely 404 from dev server or Vercel error page)
+            if (responseText.includes('<!DOCTYPE') || responseText.includes('<html')) {
+              if (responseText.includes('404') || responseText.includes('Not Found')) {
+                data = { error: 'Contact API endpoint not found. Please check your Vercel deployment and vercel.json configuration.' };
+              } else if (responseText.includes('500') || responseText.includes('Internal Server Error')) {
+                data = { error: 'Server error occurred. Please check Vercel function logs for details.' };
+              } else {
+                data = { error: 'Contact API not available. This feature only works when deployed to Vercel.' };
+              }
             } else {
-              data = { error: text || 'Unexpected response from server' };
+              // Plain text error
+              data = { error: responseText || 'Unexpected response from server' };
             }
           }
+        } else {
+          data = { error: `Server returned empty response with status ${response.status}` };
         }
 
         if (!response.ok) {
-          throw new Error(data?.error || data?.details || `Failed to send message: ${response.status} ${response.statusText}`);
+          const errorMsg = data?.details 
+            ? `${data.error}: ${data.details}` 
+            : (data?.error || `Failed to send message: ${response.status} ${response.statusText}`);
+          throw new Error(errorMsg);
         }
 
         setIsSubmitted(true);
